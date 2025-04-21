@@ -1,4 +1,0 @@
-repository "UTS_PemrogramanGame-Project1/UTS_PemrogramanGame-Project1@18968254512830@cloud"
-  path "/"
-    br "/main"
-    co "/main"
