@@ -4,11 +4,15 @@ using System.Collections;
 public class GameCreditController : MonoBehaviour
 {
     public GameObject gameCreditPanel;
+    public GameObject BtnKeluar;
     public float animationDuration = 0.5f;
 
     private RectTransform creditRect;
     private Vector2 hiddenPosition;
     private Vector2 visiblePosition;
+
+    private float lastClickTime;
+    private float doubleClickThreshold = 0.3f;
 
     void Start()
     {
@@ -27,15 +31,26 @@ public class GameCreditController : MonoBehaviour
 
     void Update()
     {
-        if (gameCreditPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (gameCreditPanel.activeSelf)
         {
-            HideCredit();
+            // Deteksi double click kiri
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (Time.time - lastClickTime < doubleClickThreshold)
+                {
+                    HideCredit(); // Double click detected
+                }
+
+                lastClickTime = Time.time;
+            }
         }
     }
 
     public void ShowCredit()
     {
         gameCreditPanel.SetActive(true);
+        BtnKeluar.SetActive(false); // Sembunyikan tombol keluar
+
         StopAllCoroutines();
         StartCoroutine(Slide(creditRect, hiddenPosition, visiblePosition, animationDuration));
     }
@@ -44,6 +59,7 @@ public class GameCreditController : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(SlideAndDeactivate(creditRect, visiblePosition, hiddenPosition, animationDuration));
+        BtnKeluar.SetActive(true); // Tampilkan tombol keluar kembali
     }
 
     private IEnumerator Slide(RectTransform target, Vector2 from, Vector2 to, float duration)

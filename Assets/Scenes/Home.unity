@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 464952689}
   - component: {fileID: 464952688}
   m_Layer: 0
-  m_Name: Nebula Blue
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,8 +565,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ddcac1fac1f5c8943a30c2ef6b724062, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1486095603069160624, guid: 79730eb5acfb8734abf14cf1fc5b4be3, type: 3}
+  m_Color: {r: 0.6377357, g: 0.6377357, b: 0.6377357, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -585,8 +585,8 @@ Transform:
   m_GameObject: {fileID: 464952687}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.43621236, y: 0.25455305, z: 1}
+  m_LocalPosition: {x: 0.0214, y: 0.0146, z: 0}
+  m_LocalScale: {x: 0.9296386, y: 0.90474755, z: 1.308421}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -621,6 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCreditPanel: {fileID: 2052412915}
+  BtnKeluar: {fileID: 1341750966}
   animationDuration: 0.5
 --- !u!4 &609158450
 Transform:
