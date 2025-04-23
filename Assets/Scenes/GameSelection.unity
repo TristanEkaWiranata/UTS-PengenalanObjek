@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &80090123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 80090125}
+  - component: {fileID: 80090124}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &80090124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80090123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028bb9cb66919fa40908f422184335b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &80090125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80090123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 809.3197, y: 731.09436, z: -6.1298165}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &115002930
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +312,7 @@ GameObject:
   - component: {fileID: 129598379}
   - component: {fileID: 129598378}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasGame2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameGameCredit: {fileID: 615227531}
   BtnKeluar: {fileID: 1504541829}
-  animationDuration: 0.5
+  animationDuration: 0.3
 --- !u!1 &555266800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1168,7 @@ GameObject:
   - component: {fileID: 977565875}
   - component: {fileID: 977565874}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasGame3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,7 +1579,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1504541832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 80090124}
+        m_TargetAssemblyTypeName: ExitGame, Assembly-CSharp
+        m_MethodName: ExitToDesktop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1504541832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1587,7 +1643,7 @@ GameObject:
   - component: {fileID: 1582725968}
   - component: {fileID: 1582725967}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasGame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2392,3 +2448,4 @@ SceneRoots:
   - {fileID: 2063089440}
   - {fileID: 334101845}
   - {fileID: 1259953682}
+  - {fileID: 80090125}
