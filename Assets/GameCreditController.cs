@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameCreditController : MonoBehaviour
 {
-    public GameObject gameCreditPanel;
+    public GameObject gameGameCredit;
     public GameObject BtnKeluar;
     public float animationDuration = 0.5f;
 
@@ -16,7 +16,7 @@ public class GameCreditController : MonoBehaviour
 
     void Start()
     {
-        creditRect = gameCreditPanel.GetComponent<RectTransform>();
+        creditRect = gameGameCredit.GetComponent<RectTransform>();
 
         // Posisi akhir saat muncul (tengah layar)
         visiblePosition = creditRect.anchoredPosition;
@@ -26,12 +26,12 @@ public class GameCreditController : MonoBehaviour
 
         // Set posisi awal ke tersembunyi dan nonaktifkan panel
         creditRect.anchoredPosition = hiddenPosition;
-        gameCreditPanel.SetActive(false);
+        gameGameCredit.SetActive(false);
     }
 
     void Update()
     {
-        if (gameCreditPanel.activeSelf)
+        if (gameGameCredit.activeSelf)
         {
             // Deteksi double click kiri
             if (Input.GetMouseButtonDown(0))
@@ -48,7 +48,7 @@ public class GameCreditController : MonoBehaviour
 
     public void ShowCredit()
     {
-        gameCreditPanel.SetActive(true);
+        gameGameCredit.SetActive(true);
         BtnKeluar.SetActive(false); // Sembunyikan tombol keluar
 
         StopAllCoroutines();
@@ -77,6 +77,6 @@ public class GameCreditController : MonoBehaviour
     private IEnumerator SlideAndDeactivate(RectTransform target, Vector2 from, Vector2 to, float duration)
     {
         yield return Slide(target, from, to, duration);
-        gameCreditPanel.SetActive(false);
+        gameGameCredit.SetActive(false);
     }
 }

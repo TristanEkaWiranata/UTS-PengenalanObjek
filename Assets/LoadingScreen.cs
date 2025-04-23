@@ -1,45 +1,51 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
-public class LoadingScreen : MonoBehaviour
+public class LoadingSliderManager : MonoBehaviour
 {
-    public Text loadingText;
-    private string sceneToLoad;
+    public Slider LoadingSlider;
+    public Text LoadingText;
+    public string sceneToLoad = "GameScene";
+
+    private string[] loadingDots = { "Loading.", "Loading..", "Loading..." };
 
     void Start()
     {
-        sceneToLoad = PlayerPrefs.GetString("SceneToLoad");
         StartCoroutine(AnimateLoadingText());
-        StartCoroutine(LoadAsyncScene());
+        StartCoroutine(LoadSceneAsync(sceneToLoad));
     }
 
-    IEnumerator LoadAsyncScene()
+    IEnumerator LoadSceneAsync(string sceneName)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
-        operation.allowSceneActivation = false;
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        operation.allowSceneActivation = false; // Jangan langsung pindah scene
 
-        while (operation.progress < 0.9f)
+        float fakeProgress = 0f;
+
+        while (fakeProgress < 0.9f)
         {
+            fakeProgress += Time.deltaTime * 0.3f; // Kecepatan animasi progress
+            LoadingSlider.value = fakeProgress;
             yield return null;
         }
 
-        yield return new WaitForSeconds(1f); // delay opsional
+        // Tahan sedikit untuk dramatis
+        yield return new WaitForSeconds(1f);
 
+        // Isi sisa progress
+        LoadingSlider.value = 1f;
         operation.allowSceneActivation = true;
     }
 
     IEnumerator AnimateLoadingText()
     {
-        string baseText = "Loading";
+        int dotIndex = 0;
         while (true)
         {
-            loadingText.text = baseText + ".";
-            yield return new WaitForSeconds(0.5f);
-            loadingText.text = baseText + "..";
-            yield return new WaitForSeconds(0.5f);
-            loadingText.text = baseText + "...";
+            LoadingText.text = loadingDots[dotIndex];
+            dotIndex = (dotIndex + 1) % loadingDots.Length;
             yield return new WaitForSeconds(0.5f);
         }
     }
