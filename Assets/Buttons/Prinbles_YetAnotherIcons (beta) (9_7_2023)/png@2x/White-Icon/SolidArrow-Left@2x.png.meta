@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SolidArrow-Left@2x_0: 8126707768687324589
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
