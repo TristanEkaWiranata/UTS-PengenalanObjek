@@ -3,12 +3,18 @@ using UnityEngine.UI;
 
 public class PlanetManager : MonoBehaviour
 {
-    public Text titleText;         // Referensi ke UI Text untuk nama planet
-    public Text infoText;          // Referensi ke UI Text untuk informasi planet
-    public Button nextButton;      // Tombol Next
-    public Button prevButton;      // Tombol Previous
-    public Image planetImage;      // UI Image untuk menampilkan sprite planet
-    public Sprite[] planetSprites; // Array Sprite planet
+    public Text titleText;
+    public Text infoText;
+    public Button nextButton;
+    public Button prevButton;
+    public Button soundOnButton;
+    public Button soundOffButton;
+    public Image planetImage;
+    public Sprite[] planetSprites;
+
+    public AudioSource audioSource;
+    public AudioClip buttonClickSound;
+    public AudioClip[] planetSounds;
 
     private string[] planetNames = {
         "MERKURIUS", "VENUS", "BUMI", "MARS",
@@ -16,36 +22,31 @@ public class PlanetManager : MonoBehaviour
     };
 
     private string[] planetInfos = {
-        "Merkurius adalah planet terkecil dan terdekat dari Matahari. Periode rotasinya sangat lambat dan dipenuhi kawah akibat hantaman meteor, mirip seperti Bulan. Karena tidal locked, permukaannya sangat ekstrem—mencapai lebih dari 400°C saat siang dan -180°C di malam hari. Merkurius berputar sangat lambat, namun mengelilingi Matahari dengan orbit tercepat di antara semua planet.",
-        "Venus adalah planet kedua dari Matahari. Dikenal sebagai planet paling panas karena efek rumah kaca ekstrem, suhunya mencapai 470°C. Atmosfernya tebal, penuh dengan karbon dioksida dan awan asam sulfat. Venus berputar sangat lambat dan berlawanan arah dengan planet lain (retrograde).",
-        "Bumi adalah planet ketiga dari Matahari. Planet ini unik karena memiliki air cair, kehidupan, dan atmosfer yang kaya oksigen. Suhu rata-ratanya sekitar 15°C, dengan iklim yang beragam. Bumi memiliki satu satelit alami, yaitu Bulan.",
-        "Mars adalah planet keempat dari Matahari. Dikenal sebagai Planet Merah karena warna permukaannya yang kemerahan akibat oksida besi. Mars memiliki gunung berapi terbesar di tata surya, Olympus Mons, dan suhu rata-rata -63°C.",
-        "Jupiter adalah planet kelima dari Matahari dan terbesar di tata surya. Planet ini merupakan raksasa gas dengan banyak satelit, termasuk Ganymede yang lebih besar dari Merkurius. Jupiter memiliki badai besar bernama Bintik Merah Besar.",
-        "Saturnus adalah planet keenam dari Matahari, terkenal dengan sistem cincinnya yang indah. Planet ini juga raksasa gas, dengan banyak satelit seperti Titan yang memiliki atmosfer lebih tebal dari Bumi.",
-        "Uranus adalah planet ketujuh dari Matahari. Planet ini unik karena sumbu rotasinya sangat miring, hampir sejajar dengan orbitnya. Uranus memiliki warna biru kehijauan karena kandungan metana di atmosfernya.",
-        "Neptunus adalah planet kedelapan dari Matahari. Planet ini memiliki angin tercepat di tata surya, mencapai 2.400 km/jam. Neptunus berwarna biru cerah karena metana, dan memiliki satelit besar bernama Triton."
+        "Merkurius adalah planet terkecil dan terdekat dari Matahari...",
+        "Venus adalah planet kedua dari Matahari...",
+        "Bumi adalah planet ketiga dari Matahari...",
+        "Mars adalah planet keempat dari Matahari...",
+        "Jupiter adalah planet kelima dari Matahari...",
+        "Saturnus adalah planet keenam dari Matahari...",
+        "Uranus adalah planet ketujuh dari Matahari...",
+        "Neptunus adalah planet kedelapan dari Matahari..."
     };
 
     private int currentPlanetIndex = 0;
+    private bool isSoundOn = true;
+    private Vector3 originalScale;
 
     void Start()
     {
         nextButton.onClick.AddListener(NextPlanet);
         prevButton.onClick.AddListener(PrevPlanet);
+        soundOnButton.onClick.AddListener(EnableSound);
+        soundOffButton.onClick.AddListener(DisableSound);
 
+        originalScale = planetImage.rectTransform.localScale;
         UpdatePlanetInfo();
-    }
-
-    void NextPlanet()
-    {
-        currentPlanetIndex = (currentPlanetIndex + 1) % planetNames.Length;
-        UpdatePlanetInfo();
-    }
-
-    void PrevPlanet()
-    {
-        currentPlanetIndex = (currentPlanetIndex - 1 + planetNames.Length) % planetNames.Length;
-        UpdatePlanetInfo();
+        UpdateSoundToggleUI();
+        UpdateButtonState();
     }
 
     void UpdatePlanetInfo()
@@ -53,10 +54,125 @@ public class PlanetManager : MonoBehaviour
         titleText.text = planetNames[currentPlanetIndex];
         infoText.text = planetInfos[currentPlanetIndex];
 
-        // Update gambar planet
         if (planetSprites != null && currentPlanetIndex < planetSprites.Length)
         {
             planetImage.sprite = planetSprites[currentPlanetIndex];
         }
+
+        audioSource.Stop();
+
+        if (isSoundOn && planetSounds != null && currentPlanetIndex < planetSounds.Length)
+        {
+            audioSource.PlayOneShot(planetSounds[currentPlanetIndex]);
+        }
+
+        // Animasi untuk planet dan teks
+        AnimatePlanetImage();
+    }
+
+    void NextPlanet()
+    {
+        if (currentPlanetIndex < planetNames.Length - 1)
+        {
+            currentPlanetIndex++;
+            PlayClickSound();
+            UpdatePlanetInfo();
+            AnimatePlanetImage();
+            UpdateButtonState();
+        }
+    }
+
+    void PrevPlanet()
+    {
+        if (currentPlanetIndex > 0)
+        {
+            currentPlanetIndex--;
+            PlayClickSound();
+            UpdatePlanetInfo();
+            AnimatePlanetImage();
+            UpdateButtonState();
+        }
+    }
+
+    void UpdateButtonState()
+    {
+        // Menonaktifkan tombol jika sudah di planet pertama atau terakhir
+        nextButton.interactable = currentPlanetIndex < planetNames.Length - 1;
+        prevButton.interactable = currentPlanetIndex > 0;
+    }
+
+    void PlayClickSound()
+    {
+        if (audioSource != null && buttonClickSound != null && isSoundOn)
+        {
+            audioSource.PlayOneShot(buttonClickSound);
+        }
+    }
+
+    void EnableSound()
+    {
+        isSoundOn = true;
+        UpdateSoundToggleUI();
+        audioSource.PlayOneShot(planetSounds[currentPlanetIndex]);
+    }
+
+    void DisableSound()
+    {
+        isSoundOn = false;
+        audioSource.Stop();
+        UpdateSoundToggleUI();
+    }
+
+    void UpdateSoundToggleUI()
+    {
+        soundOnButton.gameObject.SetActive(!isSoundOn);
+        soundOffButton.gameObject.SetActive(isSoundOn);
+    }
+
+    void AnimatePlanetImage()
+    {
+        planetImage.rectTransform.localScale = originalScale;
+        StopAllCoroutines();
+        StartCoroutine(ScaleBounce());
+    }
+
+    System.Collections.IEnumerator ScaleBounce()
+    {
+        float duration = 0.25f;
+        float elapsed = 0f;
+        Vector3 targetScale = originalScale * 1.1f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            planetImage.rectTransform.localScale = Vector3.Lerp(originalScale, targetScale, elapsed / duration);
+            yield return null;
+        }
+
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            planetImage.rectTransform.localScale = Vector3.Lerp(targetScale, originalScale, elapsed / duration);
+            yield return null;
+        }
+
+        planetImage.rectTransform.localScale = originalScale;
+    }
+
+
+    System.Collections.IEnumerator FadeInText()
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            titleText.canvasRenderer.SetAlpha(elapsed / duration);  // Gradually increase alpha
+            yield return null;
+        }
+
+        titleText.canvasRenderer.SetAlpha(1);  // Ensure it is fully visible at the end
     }
 }

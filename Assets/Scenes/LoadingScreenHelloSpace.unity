@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingSlider: {fileID: 886549924}
   LoadingText: {fileID: 1543145951}
+  sceneToLoad: GameSceneHelloSpace
 --- !u!4 &299714223
 Transform:
   m_ObjectHideFlags: 0
@@ -337,7 +338,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1486095603069160624, guid: 79730eb5acfb8734abf14cf1fc5b4be3, type: 3}
+  m_Sprite: {fileID: -1317985627463257166, guid: 75c56b6218336fc4c8c8e57785a13fd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
