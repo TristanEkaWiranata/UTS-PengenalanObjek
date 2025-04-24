@@ -22,14 +22,14 @@ public class PlanetManager : MonoBehaviour
     };
 
     private string[] planetInfos = {
-        "Merkurius adalah planet terkecil dan terdekat dari Matahari...",
-        "Venus adalah planet kedua dari Matahari...",
-        "Bumi adalah planet ketiga dari Matahari...",
-        "Mars adalah planet keempat dari Matahari...",
-        "Jupiter adalah planet kelima dari Matahari...",
-        "Saturnus adalah planet keenam dari Matahari...",
-        "Uranus adalah planet ketujuh dari Matahari...",
-        "Neptunus adalah planet kedelapan dari Matahari..."
+        "Merkurius adalah planet terkecil dan terdekat dari Matahari. Permukaannya berbatu dan dipenuhi kawah akibat hantaman meteor, mirip seperti Bulan. Karena tidak memiliki atmosfer yang signifikan, suhu di planet ini berubah sangat ekstrem—mencapai lebih dari 400°C saat siang dan turun hingga -180°C di malam hari. Merkurius berputar sangat lambat, namun mengelilingi Matahari dengan kecepatan tertinggi di antara semua planet.",
+        "Venus adalah planet kedua dari Matahari dan memiliki ukuran serta struktur yang hampir mirip dengan Bumi. Namun, atmosfernya yang sangat tebal terdiri dari karbon dioksida dan awan asam sulfat, menyebabkan efek rumah kaca ekstrem yang menjadikan Venus sebagai planet terpanas di tata surya. Permukaannya penuh dengan gunung berapi dan dataran luas, namun tidak terlihat langsung dari luar karena selimut awan yang pekat. Venus berputar sangat lambat dan berlawanan arah dari kebanyakan planet lain.",
+        "Bumi adalah satu-satunya planet yang diketahui mendukung kehidupan. Dikenal sebagai “Planet Biru”, Bumi memiliki atmosfer kaya oksigen, air dalam wujud cair, dan suhu yang relatif stabil. Dengan satu bulan alami dan medan magnet pelindung, Bumi memiliki kondisi yang ideal bagi keberlangsungan kehidupan dalam berbagai bentuk, dari mikroorganisme hingga manusia. Planet ini terdiri dari daratan, lautan, dan lapisan atmosfer yang kompleks dan dinamis.",
+        "Mars sering dijuluki “Planet Merah” karena permukaannya yang mengandung banyak besi oksida. Planet ini memiliki gunung tertinggi di tata surya, Olympus Mons, serta lembah besar bernama Valles Marineris. Atmosfer Mars sangat tipis dan hampir seluruhnya terdiri dari karbon dioksida, menjadikannya planet dingin dan kering. Meski demikian, terdapat es di kutub dan bukti adanya air di masa lampau, menjadikan Mars target utama eksplorasi untuk mencari kehidupan di luar Bumi.",
+        "Jupiter adalah planet terbesar di tata surya dan termasuk dalam kategori raksasa gas. Planet ini tidak memiliki permukaan padat dan diselimuti oleh awan tebal yang berputar cepat. Ciri khas Jupiter adalah Bintik Merah Besar, sebuah badai raksasa yang telah berlangsung selama ratusan tahun. Dengan lebih dari 90 bulan alami—termasuk Ganymede, bulan terbesar di tata surya—Jupiter juga memiliki medan magnet yang sangat kuat dan sistem cincin tipis yang mengelilinginya.",
+        "Saturnus terkenal dengan cincin indahnya yang terdiri dari partikel es dan batu yang mengorbit secara simetris. Seperti Jupiter, Saturnus adalah raksasa gas dengan atmosfer yang kaya akan hidrogen dan helium. Planet ini memiliki lebih dari 80 bulan, dan salah satu yang paling menonjol adalah Titan—bulan dengan atmosfer tebal dan danau metana cair di permukaannya. Saturnus berputar dengan cepat dan memiliki warna kekuningan yang khas.",
+        "Uranus adalah planet raksasa es yang memiliki warna biru pucat akibat kandungan metana di atmosfernya. Ciri unik Uranus adalah sumbu rotasinya yang hampir horizontal, sehingga planet ini tampak seperti berputar sambil berbaring. Suhu di Uranus sangat rendah, bahkan termasuk yang terdingin di tata surya. Uranus memiliki lebih dari 25 bulan dan sistem cincin redup yang sulit diamati dari Bumi.",
+        "Sebagai planet terjauh dari Matahari, Neptunus adalah dunia biru gelap yang diselimuti oleh badai besar dan angin tercepat yang pernah tercatat di tata surya—bahkan melampaui kecepatan suara. Seperti Uranus, Neptunus adalah raksasa es, namun memiliki lebih banyak aktivitas atmosfer. Triton, bulan terbesarnya, mengorbit secara retrograde dan kemungkinan merupakan objek sabuk Kuiper yang tertangkap gravitasi Neptunus."
     };
 
     private int currentPlanetIndex = 0;
