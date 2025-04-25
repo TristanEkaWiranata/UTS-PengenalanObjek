@@ -7,7 +7,7 @@ public class LoadingSliderManager : MonoBehaviour
 {
     public Slider LoadingSlider;
     public Text LoadingText;
-    public string sceneToLoad = "GameScene";
+    public string sceneToLoad = "GameSceneHelloSpace"; // Ganti dengan nama scene yang ingin dimuat
 
     private string[] loadingDots = { "Loading.", "Loading..", "Loading..." };
 
