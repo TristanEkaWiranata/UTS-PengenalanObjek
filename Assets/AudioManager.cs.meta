@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: da6fbc6e04cf163468fb3793f2b507a1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sfxSource: {instanceID: 0}
+  - bgmSource: {instanceID: 0}
+  - buttonClickSFX: {fileID: 8300000, guid: d2601a087315aed4c82261a56df90767, type: 3}
+  - bgmClip: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

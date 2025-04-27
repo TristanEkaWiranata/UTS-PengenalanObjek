@@ -6,6 +6,6 @@ public class SceneLoader : MonoBehaviour
     public void LoadSceneWithLoading(string targetScene)
     {
         PlayerPrefs.SetString("SceneToLoad", targetScene);
-        SceneManager.LoadScene("LoadingScreen");
+        SceneManager.LoadScene("LoadingScreenHelloSpace");
     }
 }
