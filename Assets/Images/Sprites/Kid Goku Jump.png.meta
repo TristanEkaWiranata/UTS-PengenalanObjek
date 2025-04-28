@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Goku Jump_0: 5595421290913374024
+      Kid Goku Jump_1: 5460481386266445028
+      Kid Goku Jump_2: 1466846267319644326
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

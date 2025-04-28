@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Goku Walk_0: -194039008252900499
+      Kid Goku Walk_1: 5813113119140545077
+      Kid Goku Walk_2: 7398142762150661974
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

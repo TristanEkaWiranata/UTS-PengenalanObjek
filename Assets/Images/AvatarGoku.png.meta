@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AvatarGoku_0: 8494617565559890383
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

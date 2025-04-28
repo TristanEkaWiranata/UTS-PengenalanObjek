@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Goku DashBack_0: 6345529475627049846
+      Kid Goku DashBack_1: 3331001178630114116
+      Kid Goku DashBack_2: 1206881307515180797
+      Kid Goku DashBack_3: -2654177198261293259
+      Kid Goku DashBack_4: -4876400376120080802
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

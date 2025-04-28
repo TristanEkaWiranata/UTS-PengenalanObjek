@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Goku Idle_0: 2449139289463290516
+      Kid Goku Idle_1: 2588475084279806663
+      Kid Goku Idle_2: 1365267094131859398
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

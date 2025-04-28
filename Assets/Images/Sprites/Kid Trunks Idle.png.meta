@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Trunks Idle_0: 8637989587653999886
+      Kid Trunks Idle_1: 3670214325491767030
+      Kid Trunks Idle_2: -2024302572177606786
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
