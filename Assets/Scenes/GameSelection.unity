@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!82 &72031198 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 8073734299129548306, guid: ad50d9fbd2fd12c47aa626a47cdce8c9, type: 3}
-  m_PrefabInstance: {fileID: 36012647395921292}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &80090123
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +267,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 1811599884}
   bgmSlider: {fileID: 306047522}
-  bgmAudioSource: {fileID: 72031198}
 --- !u!1 &191643618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,7 +1043,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GameSceneDragonBall
+          m_StringArgument: LoadingScreenGame2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &957821793
