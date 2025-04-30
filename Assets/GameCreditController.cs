@@ -49,7 +49,7 @@ public class GameCreditController : MonoBehaviour
     public void ShowCredit()
     {
         gameGameCredit.SetActive(true);
-        BtnKeluar.SetActive(false); // Sembunyikan tombol keluar
+        // BtnKeluar.SetActive(false); // Sembunyikan tombol keluar
 
         StopAllCoroutines();
         StartCoroutine(Slide(creditRect, hiddenPosition, visiblePosition, animationDuration));
