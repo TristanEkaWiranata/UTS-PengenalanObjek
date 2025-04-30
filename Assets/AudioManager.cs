@@ -18,10 +18,10 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject); // jangan dihancurkan saat pindah scene
         }
-        // else
-        // {
-        //     Destroy(gameObject);
-        // }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
