@@ -5,9 +5,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - sfxSource: {instanceID: 0}
-  - bgmSource: {instanceID: 0}
-  - buttonClickSFX: {fileID: 8300000, guid: d2601a087315aed4c82261a56df90767, type: 3}
-  - bgmClip: {instanceID: 0}
+  - bgmSource: {fileID: 8073734299129548306, guid: ad50d9fbd2fd12c47aa626a47cdce8c9, type: 3}
+  - buttonClickSFX: {fileID: 8300000, guid: f99e17218a33b9f46a7dc81949295439, type: 3}
+  - bgmClip: {fileID: 8300000, guid: 64fbd2244a68fb0438873c007e902e01, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

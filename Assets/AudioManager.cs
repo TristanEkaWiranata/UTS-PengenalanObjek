@@ -3,7 +3,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-
+    
     public AudioSource sfxSource;
     public AudioSource bgmSource;
 
@@ -30,9 +30,14 @@ public class AudioManager : MonoBehaviour
         {
             bgmSource.clip = bgmClip;
             bgmSource.loop = true;
+
+            float savedVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
+            bgmSource.volume = savedVolume;
+
             bgmSource.Play();
         }
     }
+
 
     // Function untuk play sfx
     public void PlaySFX()
@@ -46,11 +51,16 @@ public class AudioManager : MonoBehaviour
     // Function untuk atur volume BGM
     public void SetBGMVolume(float value)
     {
-        if (bgmSource != null)
+        if (bgmSource == null)
         {
-            bgmSource.volume = value;
+            Debug.LogWarning("BGM Source hilang atau sudah dihancurkan.");
+            return;
         }
+
+        bgmSource.volume = value;
     }
+
+
 
     // Function untuk mute/unmute BGM
     public void SetBGMMute(bool mute)
