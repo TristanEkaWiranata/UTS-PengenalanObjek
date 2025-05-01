@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 251200423}
   - component: {fileID: 251200422}
   m_Layer: 5
-  m_Name: Image
+  m_Name: GalaxySpiral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 1220862147}
   - component: {fileID: 1220862146}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 1346799252}
   - component: {fileID: 1346799251}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ObjectDrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 1558254534}
   - component: {fileID: 1558254533}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Pintu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
