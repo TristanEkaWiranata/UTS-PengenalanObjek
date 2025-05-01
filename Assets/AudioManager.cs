@@ -28,13 +28,16 @@ public class AudioManager : MonoBehaviour
     {
         if (bgmSource != null && bgmClip != null)
         {
-            bgmSource.clip = bgmClip;
-            bgmSource.loop = true;
+            if (bgmSource.clip == null) // hanya set jika belum ada
+            {
+                bgmSource.clip = bgmClip;
+                bgmSource.loop = true;
 
-            float savedVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
-            bgmSource.volume = savedVolume;
+                float savedVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
+                bgmSource.volume = savedVolume;
 
-            bgmSource.Play();
+                bgmSource.Play();
+            }
         }
     }
 
@@ -70,4 +73,17 @@ public class AudioManager : MonoBehaviour
             bgmSource.mute = mute;
         }
     }
+
+    public void ChangeBGM(AudioClip newClip)
+    {
+        if (bgmSource == null || newClip == null) return;
+
+        if (bgmSource.clip == newClip) return; // sudah dipakai
+
+        bgmSource.Stop();
+        bgmSource.clip = newClip;
+        bgmSource.Play();
+    }
+
+
 }
