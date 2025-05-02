@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      glowing-spaceship-orbits-planet-starry-galaxy-generated-by-ai_0: 2580568587766671879
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
