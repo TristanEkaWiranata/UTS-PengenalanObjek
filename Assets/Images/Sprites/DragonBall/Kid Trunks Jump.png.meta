@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Trunks Jump_0: 8906630946982988455
+      Kid Trunks Jump_1: -1064745712729648033
+      Kid Trunks Jump_2: 7798663579387873414
+      Kid Trunks Jump_3: -450301952573931503
+      Kid Trunks Jump_4: -6558091617794754548
+      Kid Trunks Jump_5: -640013652796990403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

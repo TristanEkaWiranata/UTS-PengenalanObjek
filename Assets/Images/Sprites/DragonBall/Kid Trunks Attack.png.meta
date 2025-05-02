@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Trunks Attack_0: 5771863214218320559
+      Kid Trunks Attack_1: 6420151819818900069
+      Kid Trunks Attack_2: 9216605102309207355
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

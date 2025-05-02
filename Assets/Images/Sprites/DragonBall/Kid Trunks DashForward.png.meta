@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Kid Trunks DashForward_0: 6546293171700400652
+      Kid Trunks DashForward_1: 4707833138697481065
+      Kid Trunks DashForward_2: -2336353708072825818
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
