@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PLayerMovement : MonoBehaviour
 {
-    public KeyCode leftKey = KeyCode.A;
-    public KeyCode rightKey = KeyCode.D;
-    public KeyCode jumpKey = KeyCode.W;
+    public KeyCode leftKey;
+    public KeyCode rightKey;
+    public KeyCode jumpKey;
 
-    bool isFacingRight = true;
+    public bool isFacingRight;
     bool isGrounded = true;
     bool isDashing = false;
 
@@ -125,11 +125,16 @@ public class PLayerMovement : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
+{
+    Debug.Log(gameObject.name + " touched " + collision.name + " with tag: " + collision.tag);
+
+    if (collision.CompareTag("Ground"))
     {
-        if (collision.CompareTag("Ground"))
-        {
-            isGrounded = true;
-            animator.SetBool("isJumping", false);
-        }
+        Debug.Log(gameObject.name + " landed on the ground");
+        isGrounded = true;
+        animator.SetBool("isJumping", false);
     }
+}
+
+
 }

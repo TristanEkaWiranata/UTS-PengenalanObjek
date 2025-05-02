@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - GoalPlayer2
+  - GoalPlayer1
+  - Player2Score
+  - Player1Score
   layers:
   - Default
   - TransparentFX

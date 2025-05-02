@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 71253fcd359f85d498b002c82c07fd5d
+guid: 7db0be1febb82864194e3b7cc1238cce
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3342209041111057682
-    second: 1847 2_0
+      213: 5771863214218320559
+    second: Kid Trunks Attack_0
+  - first:
+      213: 6420151819818900069
+    second: Kid Trunks Attack_1
+  - first:
+      213: 9216605102309207355
+    second: Kid Trunks Attack_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1847 2_0
+      name: Kid Trunks Attack_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 0
-        width: 1920
-        height: 1080
+        width: 44
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eeaf97bb5961e91d0800000000000000
-      internalID: -3342209041111057682
+      spriteID: faa90af3307c91050800000000000000
+      internalID: 5771863214218320559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Attack_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 0
+        width: 43
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56a12609016f81950800000000000000
+      internalID: 6420151819818900069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Attack_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 0
+        width: 55
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3d61364285f7ef70800000000000000
+      internalID: 9216605102309207355
       vertices: []
       indices: 
       edges: []
@@ -147,8 +197,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      1847 2_0: -3342209041111057682
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

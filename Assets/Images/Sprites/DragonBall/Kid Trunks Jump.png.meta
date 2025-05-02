@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: 71253fcd359f85d498b002c82c07fd5d
+guid: 5a755982794a56c4d82cc5582b01cb51
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3342209041111057682
-    second: 1847 2_0
+      213: 8906630946982988455
+    second: Kid Trunks Jump_0
+  - first:
+      213: -1064745712729648033
+    second: Kid Trunks Jump_1
+  - first:
+      213: 7798663579387873414
+    second: Kid Trunks Jump_2
+  - first:
+      213: -450301952573931503
+    second: Kid Trunks Jump_3
+  - first:
+      213: -6558091617794754548
+    second: Kid Trunks Jump_4
+  - first:
+      213: -640013652796990403
+    second: Kid Trunks Jump_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1847 2_0
+      name: Kid Trunks Jump_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 4
+        y: 10
+        width: 48
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +143,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eeaf97bb5961e91d0800000000000000
-      internalID: -3342209041111057682
+      spriteID: 7aa0c6c28a5ba9b70800000000000000
+      internalID: 8906630946982988455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Jump_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 16
+        width: 54
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5411a06a634931f0800000000000000
+      internalID: -1064745712729648033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Jump_2
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 20
+        width: 39
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 688c034d43b6a3c60800000000000000
+      internalID: 7798663579387873414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Jump_3
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 25
+        width: 57
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1108a2b82c430c9f0800000000000000
+      internalID: -450301952573931503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Jump_4
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 48
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0870ec7b6afcf4a0800000000000000
+      internalID: -6558091617794754548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kid Trunks Jump_5
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 0
+        width: 43
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3c92a549f63e17f0800000000000000
+      internalID: -640013652796990403
       vertices: []
       indices: 
       edges: []
@@ -147,8 +272,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      1847 2_0: -3342209041111057682
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
