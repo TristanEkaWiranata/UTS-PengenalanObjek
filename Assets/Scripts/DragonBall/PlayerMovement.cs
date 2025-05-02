@@ -23,6 +23,9 @@ public class PLayerMovement : MonoBehaviour
     int lastTapDirection = 0;
     bool waitingForSecondTap = false;
 
+    int maxJumps = 2;         // Jumlah maksimum lompatan
+    int jumpCount = 0;        // Hitungan lompatan
+
     Rigidbody2D rb;
     Animator animator;
 
@@ -57,13 +60,14 @@ public class PLayerMovement : MonoBehaviour
             }
         }
 
-        // Flip
+        // Flip arah
         FlipSprite();
 
-        // Lompat
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        // Lompat: bisa dua kali
+        if (Input.GetKeyDown(jumpKey) && jumpCount < maxJumps)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+            jumpCount++;
             isGrounded = false;
             animator.SetBool("isJumping", true);
         }
@@ -100,7 +104,7 @@ public class PLayerMovement : MonoBehaviour
     void HandleTap(int direction)
     {
         horizontalInput = direction;
-        
+
         if (waitingForSecondTap && lastTapDirection == direction)
         {
             Dash(direction);
@@ -125,16 +129,12 @@ public class PLayerMovement : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-{
-    Debug.Log(gameObject.name + " touched " + collision.name + " with tag: " + collision.tag);
-
-    if (collision.CompareTag("Ground"))
     {
-        Debug.Log(gameObject.name + " landed on the ground");
-        isGrounded = true;
-        animator.SetBool("isJumping", false);
+        if (collision.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            jumpCount = 0; // Reset jump saat menyentuh tanah
+            animator.SetBool("isJumping", false);
+        }
     }
-}
-
-
 }
