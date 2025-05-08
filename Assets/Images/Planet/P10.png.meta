@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a958a9649e369e949a2652fa6d4c79ae
+guid: d54f312d13d75a6439ed147d9455ecbd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 924718636708962228
-    second: Leonardo_Phoenix_10_Generate_a_horizontal_image_asset_1920x108_2 (2)_0
+      213: -5099292496197868168
+    second: 10_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Leonardo_Phoenix_10_Generate_a_horizontal_image_asset_1920x108_2 (2)_0
+      name: 10_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1472
-        height: 832
+        width: 253
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bf983263b245dc00800000000000000
-      internalID: 924718636708962228
+      spriteID: 875af4eed7cab39b0800000000000000
+      internalID: -5099292496197868168
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Leonardo_Phoenix_10_Generate_a_horizontal_image_asset_1920x108_2 (2)_0: 924718636708962228
+      10_0: -5099292496197868168
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
