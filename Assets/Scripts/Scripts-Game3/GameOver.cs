@@ -113,7 +113,7 @@ public class GameOver : MonoBehaviour
 
     void QuitGame()
     {
-        Debug.Log("Quit ditekan. Keluar aplikasi.");
-        Application.Quit();
+        Debug.Log("Quit ditekan. Pindah ke scene utama.");
+        SceneManager.LoadScene("GameSelection");
     }
 }
