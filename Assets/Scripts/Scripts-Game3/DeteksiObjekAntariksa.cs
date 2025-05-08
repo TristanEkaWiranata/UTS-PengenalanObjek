@@ -23,14 +23,12 @@ public class DeteksiObjekAntariksa : MonoBehaviour
         if (textScore != null)
         {
             textScore.text = GameManager.Instance.GetScore().ToString();
-            Debug.Log($"DeteksiObjekAntariksa ({gameObject.name}): textScore diatur.");
         }
         else
         {
             Debug.LogError($"TextScore tidak diatur di {gameObject.name}. Pastikan Text Score diassign di Inspector.");
         }
 
-        Debug.Log($"DeteksiObjekAntariksa ({gameObject.name}) diinisialisasi: targetTag={targetTag}");
         ResetDetector();
     }
 
@@ -46,7 +44,6 @@ public class DeteksiObjekAntariksa : MonoBehaviour
                 textScore.text = GameManager.Instance.GetScore().ToString();
 
             mediaPlayerBenar.Play();
-            Debug.Log($"Objek {collision.gameObject.name} benar di {gameObject.name}. Skor: +{finalScore}, objectsSorted={objectsSorted}");
         }
         else
         {
@@ -57,7 +54,6 @@ public class DeteksiObjekAntariksa : MonoBehaviour
                 textScore.text = GameManager.Instance.GetScore().ToString();
 
             mediaPlayerSalah.Play();
-            Debug.Log($"Objek {collision.gameObject.name} salah di {gameObject.name}. Skor: -15, objectsSorted={objectsSorted}");
         }
 
         Destroy(collision.gameObject);
@@ -68,7 +64,6 @@ public class DeteksiObjekAntariksa : MonoBehaviour
         {
             GameManager.Instance.SaveHighScore();
             GameManager.Instance.TriggerGameOver();
-            Debug.Log($"Game Over: Semua objek ({objectsSorted}/{GameManager.Instance.GetObjectsToSort()}) disortir.");
         }
     }
 
@@ -79,7 +74,6 @@ public class DeteksiObjekAntariksa : MonoBehaviour
         if (textScore != null)
         {
             textScore.text = GameManager.Instance.GetScore().ToString();
-            Debug.Log($"Detektor {gameObject.name} direset: objectsSorted={objectsSorted}, score={GameManager.Instance.GetScore()}");
         }
         else
         {

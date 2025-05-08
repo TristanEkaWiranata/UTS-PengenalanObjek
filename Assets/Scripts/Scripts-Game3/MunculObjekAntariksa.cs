@@ -63,7 +63,6 @@ public class MunculObjekAntariksa : MonoBehaviour
             objScript.SetSpeed(GameManager.Instance.GetObjectSpeed());
         }
 
-        Debug.Log($"Objek {newObj.name} di-spawn secara acak.");
     }
 
     public void ResetForNewLevel(float newInterval)
@@ -71,7 +70,6 @@ public class MunculObjekAntariksa : MonoBehaviour
         spawnInterval = newInterval;
         timer = 0;
         enabled = true;
-        Debug.Log($"Spawner direset untuk level baru: interval={newInterval}");
     }
 
     public void ResetSpawner()
@@ -79,6 +77,5 @@ public class MunculObjekAntariksa : MonoBehaviour
         spawnInterval = GameManager.Instance.GetSpawnInterval();
         timer = 0;
         enabled = true;
-        Debug.Log($"Spawner direset sepenuhnya: interval={spawnInterval}, enabled={enabled}");
     }
 }

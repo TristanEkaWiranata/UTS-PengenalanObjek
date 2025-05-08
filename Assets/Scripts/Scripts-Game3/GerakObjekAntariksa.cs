@@ -47,7 +47,6 @@ public class GerakObjekAntariksa : MonoBehaviour
         {
             int index = Random.Range(0, sprites.Length);
             spriteRenderer.sprite = sprites[index];
-            Debug.Log($"Sprite diatur untuk {gameObject.name}: {sprites[index].name}");
         }
         else
         {
@@ -68,7 +67,6 @@ public class GerakObjekAntariksa : MonoBehaviour
             normalizer.NormalizeSize();
         }
 
-        Debug.Log($"Objek {gameObject.name} - Tag: {gameObject.tag}, Collider: {collider.size}, IsTrigger: {collider.isTrigger}, Layer: {LayerMask.LayerToName(gameObject.layer)}, Sprites Count: {(sprites != null ? sprites.Length : 0)}");
     }
 
     void Update()
@@ -89,7 +87,6 @@ public class GerakObjekAntariksa : MonoBehaviour
         isDragging = true;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-        Debug.Log($"Mulai drag pada {gameObject.name}, Category: {category}, Position: {transform.position}");
     }
 
     void OnMouseDrag()
@@ -103,7 +100,6 @@ public class GerakObjekAntariksa : MonoBehaviour
     {
         isDragging = false;
         transform.position = new Vector3(transform.position.x, firstY, transform.position.z);
-        Debug.Log($"Akhir drag pada {gameObject.name}, Category: {category}, Position: {transform.position}");
     }
 
     public void SetSpeed(float newSpeed)

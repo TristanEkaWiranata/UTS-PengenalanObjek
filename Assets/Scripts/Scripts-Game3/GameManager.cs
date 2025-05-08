@@ -139,7 +139,6 @@ public class GameManager : MonoBehaviour
         score += points;
         if (score < 0) score = 0;
         CheckLevelUp(score);
-        Debug.Log($"Skor diperbarui: {score} (+{points})");
     }
 
     public void ResetScore()
@@ -182,7 +181,6 @@ public class GameManager : MonoBehaviour
         if (levelTextObj != null)
         {
             levelText = levelTextObj.GetComponent<Text>();
-            Debug.Log($"LevelText ditemukan: {levelTextObj.name}");
         }
         else
         {
@@ -193,7 +191,6 @@ public class GameManager : MonoBehaviour
         if (timerTextObj != null)
         {
             timerText = timerTextObj.GetComponent<Text>();
-            Debug.Log($"TimerText ditemukan: {timerTextObj.name}");
         }
         else
         {
@@ -207,7 +204,6 @@ public class GameManager : MonoBehaviour
             if (heartObj != null)
             {
                 hearts[i] = heartObj.GetComponent<Image>();
-                Debug.Log($"Heart{i + 1} ditemukan: {heartObj.name}");
             }
             else
             {
@@ -220,7 +216,6 @@ public class GameManager : MonoBehaviour
         {
             winText = winTextObj.GetComponent<Text>();
             winText.gameObject.SetActive(false);
-            Debug.Log($"WinText ditemukan: {winTextObj.name}");
         }
         else
         {
@@ -238,7 +233,6 @@ public class GameManager : MonoBehaviour
         if (spawner != null)
         {
             spawner.ResetSpawner();
-            Debug.Log("Spawner direset.");
         }
         else
         {
@@ -252,7 +246,6 @@ public class GameManager : MonoBehaviour
         foreach (var detector in detectors)
         {
             detector.ResetDetector();
-            Debug.Log($"Detektor {detector.gameObject.name} direset.");
         }
     }
 
@@ -286,7 +279,6 @@ public class GameManager : MonoBehaviour
         if (levelText != null)
         {
             levelText.text = "Level: " + currentLevel;
-            Debug.Log($"Level UI diperbarui: Level={currentLevel}");
         }
     }
 
@@ -296,7 +288,6 @@ public class GameManager : MonoBehaviour
         {
             timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining).ToString();
             timerText.color = timeRemaining < 10f ? Color.red : Color.white;
-            Debug.Log($"Timer UI diperbarui: Time={Mathf.CeilToInt(timeRemaining)}");
         }
     }
 
@@ -309,7 +300,6 @@ public class GameManager : MonoBehaviour
                 hearts[i].gameObject.SetActive(i < lives);
             }
         }
-        Debug.Log($"Lives UI diperbarui: Lives={lives}");
     }
 
     private void UpdateGameDifficulty()
