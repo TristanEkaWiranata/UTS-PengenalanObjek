@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4e786d738cfdfdc43b1ef2710bd62da1
+guid: 185b4f4bf1a0e9d458690bfa25d55cc3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 196882386524234375
-    second: Game03-frame_0
+      213: 8368368376636109375
+    second: BtnExitMenu_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Game03-frame_0
+      name: BtnExitMenu_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 505
-        height: 377
+        width: 420
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 782ee47cc777bb200800000000000000
-      internalID: 196882386524234375
+      spriteID: f32f10773ba622470800000000000000
+      internalID: 8368368376636109375
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Game03-frame_0: 196882386524234375
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

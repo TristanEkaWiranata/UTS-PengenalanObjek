@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 4e786d738cfdfdc43b1ef2710bd62da1
+guid: 84377f91bba83af4e9c08436f7c629b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 196882386524234375
-    second: Game03-frame_0
+      213: -3508584848435867860
+    second: Game Over (1)_0
+  - first:
+      213: -8476462174590987006
+    second: Game Over (1)_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Game03-frame_0
+      name: Game Over (1)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 505
-        height: 377
+        y: 1
+        width: 715
+        height: 295
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 782ee47cc777bb200800000000000000
-      internalID: 196882386524234375
+      spriteID: c2f89ac6ba00f4fc0800000000000000
+      internalID: -3508584848435867860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over (1)_1
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 0
+        width: 656
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 205187bff8e8d5a80800000000000000
+      internalID: -8476462174590987006
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Game03-frame_0: 196882386524234375
+      Game Over (1)_0: -3508584848435867860
+      Game Over (1)_1: -8476462174590987006
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

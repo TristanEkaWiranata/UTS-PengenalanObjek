@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4e786d738cfdfdc43b1ef2710bd62da1
+guid: 4e504a5307985254398c8d3f6f754e6b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 196882386524234375
-    second: Game03-frame_0
+      213: -96103610001157596
+    second: Dragon Ball_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Game03-frame_0
+      name: Dragon Ball_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 505
-        height: 377
+        x: 2
+        y: 1
+        width: 999
+        height: 276
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 782ee47cc777bb200800000000000000
-      internalID: 196882386524234375
+      spriteID: 4229f30a6429aaef0800000000000000
+      internalID: -96103610001157596
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Game03-frame_0: 196882386524234375
+      Dragon Ball_0: -96103610001157596
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
