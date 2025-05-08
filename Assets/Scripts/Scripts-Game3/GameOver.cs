@@ -1,35 +1,119 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameOver : MonoBehaviour
 {
-    public Text finalScoreText; // UI untuk skor akhir
-    public Text finalLevelText; // UI untuk level terakhir
-    float timer = 0;
+    public Text finalScoreText;
+    public Text finalLevelText;
+    public Button playAgainButton;
+    public Button quitButton;
 
     void Start()
     {
-        // Tampilkan skor dan level akhir
-        if (finalScoreText != null)
+        Debug.Log("GameOver Start: Inisialisasi...");
+
+        EnsureEventSystem();
+
+        SetupText(ref finalScoreText, "score", () =>
         {
-            finalScoreText.text = "Final Score: " + Data.score;
-        }
-        if (finalLevelText != null)
+            if (GameManager.Instance != null)
+            {
+                int score = GameManager.Instance.GetScore();
+                int highScore = PlayerPrefs.GetInt("HighScore", 0);
+                return $"Final Score: {score}\nHigh Score: {highScore}";
+            }
+            return "Final Score: N/A";
+        });
+
+        SetupText(ref finalLevelText, "level", () =>
         {
-            finalLevelText.text = "Level Reached: " + LevelManager.Instance.GetCurrentLevel();
+            if (GameManager.Instance != null)
+                return "Level Reached: " + GameManager.Instance.GetCurrentLevel();
+            return "Level Reached: N/A";
+        });
+
+        SetupButton(ref playAgainButton, "PlayAgain", PlayAgain);
+        SetupButton(ref quitButton, "Quit", QuitGame);
+    }
+
+    void EnsureEventSystem()
+    {
+        if (FindObjectOfType<EventSystem>() == null)
+        {
+            GameObject eventSystem = new GameObject("EventSystem");
+            eventSystem.AddComponent<EventSystem>();
+            eventSystem.AddComponent<StandaloneInputModule>();
+            Debug.Log("EventSystem otomatis ditambahkan.");
         }
     }
 
-    void Update()
+    void SetupText(ref Text textComponent, string keyword, System.Func<string> getText)
     {
-        timer += Time.deltaTime;
-        if (timer > 2)
+        if (textComponent == null)
         {
-            Data.score = 0;
-            SceneManager.LoadScene("Game3Scene");
+            textComponent = FindTextWithNameContaining(keyword);
+            if (textComponent == null)
+            {
+                Debug.LogError($"Text dengan keyword '{keyword}' tidak ditemukan.");
+                return;
+            }
         }
+
+        textComponent.text = getText();
+        Debug.Log($"{textComponent.name} diatur: {textComponent.text}");
+    }
+
+    void SetupButton(ref Button buttonComponent, string keyword, UnityEngine.Events.UnityAction action)
+    {
+        if (buttonComponent == null)
+        {
+            buttonComponent = FindButtonWithNameContaining(keyword);
+            if (buttonComponent == null)
+            {
+                Debug.LogError($"Button dengan keyword '{keyword}' tidak ditemukan.");
+                return;
+            }
+        }
+
+        buttonComponent.onClick.RemoveAllListeners();
+        buttonComponent.onClick.AddListener(action);
+        Debug.Log($"{buttonComponent.name} siap digunakan.");
+    }
+
+    Text FindTextWithNameContaining(string keyword)
+    {
+        foreach (var text in FindObjectsOfType<Text>(true))
+        {
+            if (text.name.ToLower().Contains(keyword.ToLower()))
+                return text;
+        }
+        return null;
+    }
+
+    Button FindButtonWithNameContaining(string keyword)
+    {
+        foreach (var button in FindObjectsOfType<Button>(true))
+        {
+            if (button.name.ToLower().Contains(keyword.ToLower()))
+                return button;
+        }
+        return null;
+    }
+
+    void PlayAgain()
+    {
+        Debug.Log("Play Again ditekan.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
+
+        SceneManager.LoadScene("Game3Scene");
+    }
+
+    void QuitGame()
+    {
+        Debug.Log("Quit ditekan. Keluar aplikasi.");
+        Application.Quit();
     }
 }

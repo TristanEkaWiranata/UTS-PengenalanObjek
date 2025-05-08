@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1e1ba291f5943064d983a48dd12ec1a3
+guid: da49702151fa93d4f9c6fb7f6c941d44
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8296219084769308262
-    second: path5650_0
+      213: -2779609464625501949
+    second: g3597_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 800
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: path5650_0
+      name: g3597_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 234
-        height: 649
+        width: 1190
+        height: 1586
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a91528992b8eddc80800000000000000
-      internalID: -8296219084769308262
+      spriteID: 309eeae3be7dc69d0800000000000000
+      internalID: -2779609464625501949
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      path5650_0: -8296219084769308262
+      g3597_0: -2779609464625501949
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

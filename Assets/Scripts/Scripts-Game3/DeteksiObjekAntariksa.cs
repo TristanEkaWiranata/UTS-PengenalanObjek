@@ -10,7 +10,7 @@ public class DeteksiObjekAntariksa : MonoBehaviour
     private AudioSource mediaPlayerBenar;
     private AudioSource mediaPlayerSalah;
     public Text textScore;
-    private int objectsSorted = 0; // Menghitung objek yang sudah disortir di level ini
+    private int objectsSorted = 0;
 
     void Start()
     {
@@ -20,36 +20,70 @@ public class DeteksiObjekAntariksa : MonoBehaviour
         mediaPlayerSalah = gameObject.AddComponent<AudioSource>();
         mediaPlayerSalah.clip = audioSalah;
 
-        // Inisialisasi skor
-        textScore.text = Data.score.ToString();
+        if (textScore != null)
+        {
+            textScore.text = GameManager.Instance.GetScore().ToString();
+            Debug.Log($"DeteksiObjekAntariksa ({gameObject.name}): textScore diatur.");
+        }
+        else
+        {
+            Debug.LogError($"TextScore tidak diatur di {gameObject.name}. Pastikan Text Score diassign di Inspector.");
+        }
+
+        Debug.Log($"DeteksiObjekAntariksa ({gameObject.name}) diinisialisasi: targetTag={targetTag}");
+        ResetDetector();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals(targetTag))
+        if (collision.CompareTag(targetTag))
         {
-            Data.score += 25;
+            int finalScore = 25;
+            GameManager.Instance.AddScore(finalScore);
             objectsSorted++;
-            textScore.text = Data.score.ToString();
-            Destroy(collision.gameObject);
+
+            if (textScore != null)
+                textScore.text = GameManager.Instance.GetScore().ToString();
+
             mediaPlayerBenar.Play();
+            Debug.Log($"Objek {collision.gameObject.name} benar di {gameObject.name}. Skor: +{finalScore}, objectsSorted={objectsSorted}");
         }
         else
         {
-            Data.score -= 5;
+            GameManager.Instance.AddScore(-5);
             objectsSorted++;
-            textScore.text = Data.score.ToString();
-            Destroy(collision.gameObject);
+
+            if (textScore != null)
+                textScore.text = GameManager.Instance.GetScore().ToString();
+
             mediaPlayerSalah.Play();
+            Debug.Log($"Objek {collision.gameObject.name} salah di {gameObject.name}. Skor: -5, objectsSorted={objectsSorted}");
         }
 
-        // Periksa apakah naik level
-        LevelManager.Instance.CheckLevelUp(Data.score);
+        Destroy(collision.gameObject);
 
-        // Cek jika jumlah objek di level ini selesai
-        if (objectsSorted >= LevelManager.Instance.GetObjectsToSort())
+        GameManager.Instance.CheckLevelUp(GameManager.Instance.GetScore());
+
+        if (objectsSorted >= GameManager.Instance.GetObjectsToSort())
         {
+            GameManager.Instance.SaveHighScore();
             SceneManager.LoadScene("GameOver");
+            Debug.Log($"Game Over: Semua objek ({objectsSorted}/{GameManager.Instance.GetObjectsToSort()}) disortir.");
+        }
+    }
+
+    public void ResetDetector()
+    {
+        objectsSorted = 0;
+
+        if (textScore != null)
+        {
+            textScore.text = GameManager.Instance.GetScore().ToString();
+            Debug.Log($"Detektor {gameObject.name} direset: objectsSorted={objectsSorted}, score={GameManager.Instance.GetScore()}");
+        }
+        else
+        {
+            Debug.LogWarning($"Detektor {gameObject.name}: textScore null saat reset.");
         }
     }
 }

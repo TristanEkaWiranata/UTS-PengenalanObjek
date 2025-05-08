@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a958a9649e369e949a2652fa6d4c79ae
+guid: aea35d9927b87e5499ea3c141033c0ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 924718636708962228
-    second: Leonardo_Phoenix_10_Generate_a_horizontal_image_asset_1920x108_2 (2)_0
+      213: -847919877450760465
+    second: path5434_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Leonardo_Phoenix_10_Generate_a_horizontal_image_asset_1920x108_2 (2)_0
+      name: path5434_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1472
-        height: 832
+        width: 380
+        height: 754
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4bf983263b245dc00800000000000000
-      internalID: 924718636708962228
+      spriteID: feefd8a2d559b34f0800000000000000
+      internalID: -847919877450760465
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      path5434_0: -847919877450760465
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

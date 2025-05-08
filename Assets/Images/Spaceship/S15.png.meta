@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 12bf64b9e5357f646849698948ed9952
+guid: 0d17aa7ae59c0f14082d3c59cbaa8c12
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -862829372444814671
-    second: Hello-Space_-removebg-preview_0
+      213: 6491870950147163172
+    second: path72_0
   - first:
-      213: -6334032749963439575
-    second: Hello-Space_-removebg-preview_1
+      213: 4451841743325011480
+    second: path72_1
   - first:
-      213: -2598498503030047384
-    second: Hello-Space_-removebg-preview_2
+      213: 5426124483413202509
+    second: path72_2
   - first:
-      213: -3872209274789178267
-    second: Hello-Space_-removebg-preview_3
-  - first:
-      213: -7891103498219892812
-    second: Hello-Space_-removebg-preview_4
-  - first:
-      213: -8500123364227410593
-    second: Hello-Space_-removebg-preview_5
+      213: -1553153293103308106
+    second: path72_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -62,12 +56,12 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 120
+  spriteBorder: {x: 29, y: 16, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -87,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -128,133 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hello-Space_-removebg-preview_0
+      name: path72_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 243
-        width: 57
-        height: 124
+        x: 36
+        y: 22
+        width: 223
+        height: 198
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1b257a9d14d9604f0800000000000000
-      internalID: -862829372444814671
+      spriteID: 4240337db32c71a50800000000000000
+      internalID: 6491870950147163172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hello-Space_-removebg-preview_1
+      name: path72_1
       rect:
         serializedVersion: 2
-        x: 94
-        y: 254
-        width: 51
-        height: 84
+        x: 0
+        y: 3
+        width: 8
+        height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9221db6e5cef818a0800000000000000
-      internalID: -6334032749963439575
+      spriteID: 81e942b8a7e18cd30800000000000000
+      internalID: 4451841743325011480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hello-Space_-removebg-preview_2
+      name: path72_2
       rect:
         serializedVersion: 2
-        x: 148
-        y: 241
-        width: 38
-        height: 117
+        x: 5
+        y: 0
+        width: 35
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 86d7281016740fbd0800000000000000
-      internalID: -2598498503030047384
+      spriteID: d46d4e408777d4b40800000000000000
+      internalID: 5426124483413202509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hello-Space_-removebg-preview_3
+      name: path72_3
       rect:
         serializedVersion: 2
-        x: 189
-        y: 248
-        width: 135
-        height: 114
+        x: 40
+        y: 0
+        width: 28
+        height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 564d7303e26234ac0800000000000000
-      internalID: -3872209274789178267
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hello-Space_-removebg-preview_4
-      rect:
-        serializedVersion: 2
-        x: 293
-        y: 247
-        width: 16
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4bfc2ce5d2b2d7290800000000000000
-      internalID: -7891103498219892812
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hello-Space_-removebg-preview_5
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 107
-        width: 267
-        height: 143
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f551a38f5de790a80800000000000000
-      internalID: -8500123364227410593
+      spriteID: 6b269d21f47127ae0800000000000000
+      internalID: -1553153293103308106
       vertices: []
       indices: 
       edges: []
@@ -264,7 +214,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -273,12 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hello-Space_-removebg-preview_0: -862829372444814671
-      Hello-Space_-removebg-preview_1: -6334032749963439575
-      Hello-Space_-removebg-preview_2: -2598498503030047384
-      Hello-Space_-removebg-preview_3: -3872209274789178267
-      Hello-Space_-removebg-preview_4: -7891103498219892812
-      Hello-Space_-removebg-preview_5: -8500123364227410593
+      path72_0: 6491870950147163172
+      path72_1: 4451841743325011480
+      path72_2: 5426124483413202509
+      path72_3: -1553153293103308106
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

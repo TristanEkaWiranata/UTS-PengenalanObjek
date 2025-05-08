@@ -4,47 +4,42 @@ using UnityEngine;
 
 public class MunculObjekAntariksa : MonoBehaviour
 {
-    public GameObject[] antariksaPrefabs; // Prefab Planet dan Spaceship
-    private float spawnInterval;          // Interval spawn (disesuaikan oleh LevelManager)
+    public GameObject[] antariksaPrefabs;
+    private float spawnInterval;
     private float timer;
-    private int objectsSpawned = 0;      // Menghitung objek yang sudah di-spawn di level ini
-    public float spawnX = 8f;            // Posisi X untuk spawn (kanan layar)
-    public float spawnY = 0f;            // Posisi Y tetap untuk spawn
-    public float minDistance = 8f;       // Jarak minimum antar objek
-
-    private Vector3 lastSpawnPosition;   // Posisi spawn objek terakhir
+    public float spawnX = 8f;
+    public float spawnY = 0f;
+    public float minDistance = 4f;
 
     void Start()
     {
-        spawnInterval = LevelManager.Instance.GetSpawnInterval();
-        lastSpawnPosition = new Vector3(spawnX, spawnY, 0);
+        ResetSpawner();
+        if (antariksaPrefabs.Length == 0)
+        {
+            Debug.LogError("Array antariksaPrefabs kosong. Isi di Inspector.");
+        }
     }
 
     void Update()
     {
+        if (!enabled) return;
+
         timer += Time.deltaTime;
-        if (timer > spawnInterval)
+        if (timer > spawnInterval && IsSafeToSpawn())
         {
-            // Cek apakah masih perlu spawn dan jarak aman
-            if (objectsSpawned < LevelManager.Instance.GetObjectsToSort() && IsSafeToSpawn())
-            {
-                SpawnObjekAntariksa();
-                timer = 0;
-                objectsSpawned++;
-            }
+            SpawnObjekAntariksa();
+            timer = 0;
         }
     }
 
     bool IsSafeToSpawn()
     {
-        // Cari semua objek antariksa yang masih ada
         GerakObjekAntariksa[] objects = FindObjectsByType<GerakObjekAntariksa>(FindObjectsSortMode.None);
         foreach (var obj in objects)
         {
-            float distance = Mathf.Abs(obj.transform.position.x - spawnX);
-            if (distance < minDistance)
+            if (obj != null && Mathf.Abs(obj.transform.position.x - spawnX) < minDistance)
             {
-                return false; // Terlalu dekat, jangan spawn
+                return false;
             }
         }
         return true;
@@ -52,11 +47,9 @@ public class MunculObjekAntariksa : MonoBehaviour
 
     void SpawnObjekAntariksa()
     {
-        int randomIndex = Random.Range(0, antariksaPrefabs.Length);
+        GameObject prefabToSpawn = antariksaPrefabs[Random.Range(0, antariksaPrefabs.Length)];
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
-        GameObject newObj = Instantiate(antariksaPrefabs[randomIndex], spawnPosition, Quaternion.identity);
-        
-        lastSpawnPosition = spawnPosition;
+        GameObject newObj = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
         NormalizeSpriteSize normalizer = newObj.GetComponent<NormalizeSpriteSize>();
         if (normalizer != null)
@@ -67,16 +60,25 @@ public class MunculObjekAntariksa : MonoBehaviour
         GerakObjekAntariksa objScript = newObj.GetComponent<GerakObjekAntariksa>();
         if (objScript != null)
         {
-            objScript.SetSpeed(LevelManager.Instance.GetObjectSpeed());
+            objScript.SetSpeed(GameManager.Instance.GetObjectSpeed());
         }
+
+        Debug.Log($"Objek {newObj.name} di-spawn secara acak.");
     }
 
     public void ResetForNewLevel(float newInterval)
     {
         spawnInterval = newInterval;
-        objectsSpawned = 0;
         timer = 0;
-        lastSpawnPosition = new Vector3(spawnX, spawnY, 0);
         enabled = true;
+        Debug.Log($"Spawner direset untuk level baru: interval={newInterval}");
+    }
+
+    public void ResetSpawner()
+    {
+        spawnInterval = GameManager.Instance.GetSpawnInterval();
+        timer = 0;
+        enabled = true;
+        Debug.Log($"Spawner direset sepenuhnya: interval={spawnInterval}, enabled={enabled}");
     }
 }
