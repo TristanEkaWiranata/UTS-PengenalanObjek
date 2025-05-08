@@ -9,6 +9,8 @@ TagManager:
   - GoalPlayer1
   - Player2Score
   - Player1Score
+  - Celestial
+  - ManMade
   layers:
   - Default
   - TransparentFX

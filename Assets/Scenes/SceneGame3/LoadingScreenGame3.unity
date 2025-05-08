@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingSlider: {fileID: 886549924}
   LoadingText: {fileID: 1543145951}
-  sceneToLoad: GameSceneGame3
+  sceneToLoad: Game3Scene
 --- !u!4 &299714223
 Transform:
   m_ObjectHideFlags: 0
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5207484765918330213, guid: 3cca13c9112185c48ba2ef72624376e9, type: 3}
+  m_Sprite: {fileID: -2814050101091206082, guid: fa96052cd6959bb4489b1af961ec4995, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
