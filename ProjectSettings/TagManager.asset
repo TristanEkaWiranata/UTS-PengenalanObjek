@@ -11,6 +11,14 @@ TagManager:
   - Player1Score
   - Celestial
   - ManMade
+  - NonOrganik
+  - LevelText
+  - TimerText
+  - ScoreText
+  - FinalScoreText
+  - FinalLevelText
+  - PlayAgainButton
+  - QuitButton
   layers:
   - Default
   - TransparentFX
