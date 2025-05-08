@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class DeteksiObjekAntariksa : MonoBehaviour
 {
-    public string targetTag; // "Celestial" atau "ManMade"
+    public string targetTag;
     public AudioClip audioBenar;
     public AudioClip audioSalah;
     private AudioSource mediaPlayerBenar;
@@ -50,14 +50,14 @@ public class DeteksiObjekAntariksa : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.AddScore(-5);
+            GameManager.Instance.AddScore(-15);
             objectsSorted++;
 
             if (textScore != null)
                 textScore.text = GameManager.Instance.GetScore().ToString();
 
             mediaPlayerSalah.Play();
-            Debug.Log($"Objek {collision.gameObject.name} salah di {gameObject.name}. Skor: -5, objectsSorted={objectsSorted}");
+            Debug.Log($"Objek {collision.gameObject.name} salah di {gameObject.name}. Skor: -15, objectsSorted={objectsSorted}");
         }
 
         Destroy(collision.gameObject);
@@ -67,7 +67,7 @@ public class DeteksiObjekAntariksa : MonoBehaviour
         if (objectsSorted >= GameManager.Instance.GetObjectsToSort())
         {
             GameManager.Instance.SaveHighScore();
-            SceneManager.LoadScene("GameOver");
+            GameManager.Instance.TriggerGameOver();
             Debug.Log($"Game Over: Semua objek ({objectsSorted}/{GameManager.Instance.GetObjectsToSort()}) disortir.");
         }
     }

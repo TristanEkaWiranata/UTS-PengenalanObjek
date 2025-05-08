@@ -5,40 +5,74 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public Text levelText; // UI untuk level
-    public Text timerText; // UI untuk timer
+    public Text levelText;
+    public Text timerText;
+    public Image[] hearts;
+    public Text winText;
     public AudioClip levelUpSound;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     private int currentLevel = 1;
     private int score = 0;
+    private int lives = 3;
     private float timeRemaining;
-    private bool isGameActive = false; // Mulai dengan false
-    private readonly int[] scoreThresholds = { 200, 400 };
-    private readonly float[] spawnIntervals = { 1.0f, 0.8f, 0.67f };
-    private readonly float[] objectSpeeds = { 4.0f, 5.0f, 6.0f };
-    private readonly int[] objectsToSort = { 20, 25, 30 };
-    private readonly float[] levelTimes = { 60f, 50f, 40f };
+    private bool isGameActive = false;
+    private readonly int[] scoreThresholds = { 200, 400, 700, 1000 };
+    private readonly float[] spawnIntervals = { 1.0f, 0.8f, 0.67f, 0.5f, 0.4f };
+    private readonly float[] objectSpeeds = { 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+    private readonly int[] objectsToSort = { 100, 200, 300, 400, 500 };
+    private readonly float[] levelTimes = { 60f, 50f, 40f, 30f, 20f };
 
     void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning($"Duplikat GameManager ditemukan pada {gameObject.name}. Menghapus instance ini.");
+            Debug.LogWarning($"Duplikat GameManager pada {gameObject.name}. Menghapus instance ini.");
             Destroy(gameObject);
             return;
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Debug.Log("GameManager diinisialisasi sebagai singleton.");
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Game3Scene")
+        {
+            InitializeUI();
+            UpdateLevelUI();
+            UpdateTimerUI();
+            UpdateLivesUI();
+            ResetSpawner();
+            ResetDetectors();
+        }
+        else
+        {
+            levelText = null;
+            timerText = null;
+            hearts = new Image[3];
+            winText = null;
+        }
     }
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = levelUpSound;
+        if (levelUpSound != null)
+        {
+            audioSource.clip = levelUpSound;
+        }
         ResetGame();
-        Debug.Log("GameManager Start: Game direset.");
     }
 
     void Update()
@@ -54,6 +88,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void LoseLife()
+    {
+        if (isGameActive)
+        {
+            lives--;
+            UpdateLivesUI();
+            Debug.Log($"Nyawa berkurang: Lives={lives}");
+            if (lives <= 0)
+            {
+                TriggerGameOver();
+            }
+        }
+    }
+
     public void TriggerGameOver()
     {
         if (isGameActive)
@@ -63,6 +111,26 @@ public class GameManager : MonoBehaviour
             SaveHighScore();
             SceneManager.LoadScene("GameOver");
             Debug.Log("Game over, memuat scene GameOver.");
+        }
+    }
+
+    public void TriggerGameWin()
+    {
+        if (isGameActive)
+        {
+            timeRemaining = 0;
+            isGameActive = false;
+            SaveHighScore();
+            if (winText != null)
+            {
+                winText.text = "Selamat, kamu telah menyelesaikan game!";
+                winText.gameObject.SetActive(true);
+                Debug.Log("Game selesai, menampilkan pesan kemenangan.");
+            }
+            else
+            {
+                Debug.LogWarning("winText tidak ditemukan, tidak bisa menampilkan pesan kemenangan.");
+            }
         }
     }
 
@@ -90,81 +158,78 @@ public class GameManager : MonoBehaviour
         Debug.Log("ResetGame: Memulai...");
         score = 0;
         currentLevel = 1;
+        lives = 3;
         timeRemaining = levelTimes[currentLevel - 1];
         isGameActive = true;
-        InitializeUI();
-        ResetSpawner();
-        ResetDetectors();
-        Debug.Log($"ResetGame selesai: Skor={score}, Level={currentLevel}, Timer={timeRemaining}, Active={isGameActive}");
+
+        if (SceneManager.GetActiveScene().name == "Game3Scene")
+        {
+            InitializeUI();
+            UpdateLivesUI();
+            ResetSpawner();
+            ResetDetectors();
+        }
+
+        if (winText != null)
+        {
+            winText.gameObject.SetActive(false);
+        }
     }
 
     private void InitializeUI()
     {
-        Debug.Log("InitializeUI: Mencari UI di Game3Scene...");
-        // Cari LevelText
-        GameObject levelTextObj = GameObject.Find("LevelText") ??
-                                 GameObject.FindGameObjectWithTag("LevelText") ??
-                                 GameObject.Find("Level");
-        if (levelTextObj == null)
-        {
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas != null)
-            {
-                Text[] texts = canvas.GetComponentsInChildren<Text>(true);
-                foreach (Text text in texts)
-                {
-                    if (text.name.ToLower().Contains("level"))
-                    {
-                        levelTextObj = text.gameObject;
-                        Debug.Log($"LevelText ditemukan: {levelTextObj.name}");
-                        break;
-                    }
-                }
-            }
-        }
+        GameObject levelTextObj = GameObject.Find("LevelText");
         if (levelTextObj != null)
         {
             levelText = levelTextObj.GetComponent<Text>();
-            Debug.Log($"LevelText diatur: {levelTextObj.name}");
+            Debug.Log($"LevelText ditemukan: {levelTextObj.name}");
         }
         else
         {
-            Debug.LogWarning("LevelText tidak ditemukan. UI Level mungkin tidak diperbarui.");
+            Debug.LogWarning("LevelText tidak ditemukan. Pastikan ada GameObject bernama 'LevelText' di Game3Scene.");
         }
 
-        // Cari TimerText
-        GameObject timerTextObj = GameObject.Find("TimerText") ??
-                                 GameObject.FindGameObjectWithTag("TimerText") ??
-                                 GameObject.Find("Timer");
-        if (timerTextObj == null)
-        {
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas != null)
-            {
-                Text[] texts = canvas.GetComponentsInChildren<Text>(true);
-                foreach (Text text in texts)
-                {
-                    if (text.name.ToLower().Contains("timer") || text.name.ToLower().Contains("time"))
-                    {
-                        timerTextObj = text.gameObject;
-                        Debug.Log($"TimerText ditemukan: {timerTextObj.name}");
-                        break;
-                    }
-                }
-            }
-        }
+        GameObject timerTextObj = GameObject.Find("TimerText");
         if (timerTextObj != null)
         {
             timerText = timerTextObj.GetComponent<Text>();
-            Debug.Log($"TimerText diatur: {timerTextObj.name}");
+            Debug.Log($"TimerText ditemukan: {timerTextObj.name}");
         }
         else
         {
-            Debug.LogWarning("TimerText tidak ditemukan. UI Timer mungkin tidak diperbarui.");
+            Debug.LogWarning("TimerText tidak ditemukan. Pastikan ada GameObject bernama 'TimerText' di Game3Scene.");
+        }
+
+        hearts = new Image[3];
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            GameObject heartObj = GameObject.Find($"Heart{i + 1}");
+            if (heartObj != null)
+            {
+                hearts[i] = heartObj.GetComponent<Image>();
+                Debug.Log($"Heart{i + 1} ditemukan: {heartObj.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"Heart{i + 1} tidak ditemukan. Pastikan ada GameObject bernama 'Heart{i + 1}' di Game3Scene.");
+            }
+        }
+
+        GameObject winTextObj = GameObject.Find("WinText");
+        if (winTextObj != null)
+        {
+            winText = winTextObj.GetComponent<Text>();
+            winText.gameObject.SetActive(false);
+            Debug.Log($"WinText ditemukan: {winTextObj.name}");
+        }
+        else
+        {
+            Debug.LogWarning("WinText tidak ditemukan. Pastikan ada GameObject bernama 'WinText' di Game3Scene.");
         }
 
         UpdateLevelUI();
         UpdateTimerUI();
+        UpdateLivesUI();
     }
 
     private void ResetSpawner()
@@ -199,10 +264,18 @@ public class GameManager : MonoBehaviour
             {
                 currentLevel = i + 2;
                 timeRemaining = levelTimes[currentLevel - 1];
-                audioSource.Play();
+                if (audioSource != null && levelUpSound != null)
+                {
+                    audioSource.Play();
+                }
                 UpdateLevelUI();
                 UpdateGameDifficulty();
                 Debug.Log($"Level naik ke {currentLevel}, Timer={timeRemaining}");
+
+                if (currentLevel >= 5)
+                {
+                    TriggerGameWin();
+                }
                 break;
             }
         }
@@ -215,10 +288,6 @@ public class GameManager : MonoBehaviour
             levelText.text = "Level: " + currentLevel;
             Debug.Log($"Level UI diperbarui: Level={currentLevel}");
         }
-        else
-        {
-            Debug.LogWarning("LevelText null, tidak bisa memperbarui Level UI.");
-        }
     }
 
     private void UpdateTimerUI()
@@ -227,11 +296,20 @@ public class GameManager : MonoBehaviour
         {
             timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining).ToString();
             timerText.color = timeRemaining < 10f ? Color.red : Color.white;
+            Debug.Log($"Timer UI diperbarui: Time={Mathf.CeilToInt(timeRemaining)}");
         }
-        else
+    }
+
+    private void UpdateLivesUI()
+    {
+        for (int i = 0; i < hearts.Length; i++)
         {
-            Debug.LogWarning("TimerText null, tidak bisa memperbarui Timer UI.");
+            if (hearts[i] != null)
+            {
+                hearts[i].gameObject.SetActive(i < lives);
+            }
         }
+        Debug.Log($"Lives UI diperbarui: Lives={lives}");
     }
 
     private void UpdateGameDifficulty()
@@ -247,6 +325,7 @@ public class GameManager : MonoBehaviour
         {
             obj.SetSpeed(objectSpeeds[currentLevel - 1]);
         }
+        Debug.Log($"Kesulitan diperbarui: SpawnInterval={spawnIntervals[currentLevel - 1]}, Speed={objectSpeeds[currentLevel - 1]}");
     }
 
     public void SaveHighScore()
@@ -288,5 +367,10 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLevel()
     {
         return currentLevel;
+    }
+
+    public int GetLives()
+    {
+        return lives;
     }
 }
