@@ -7,11 +7,9 @@ public class MunculObjekAntariksa : MonoBehaviour
     public GameObject[] antariksaPrefabs;
     private float spawnInterval;
     private float timer;
-    private int objectsSpawned = 0;
     public float spawnX = 8f;
     public float spawnY = 0f;
     public float minDistance = 4f;
-    private string lastCategory = "";
 
     void Start()
     {
@@ -20,38 +18,17 @@ public class MunculObjekAntariksa : MonoBehaviour
         {
             Debug.LogError("Array antariksaPrefabs kosong. Isi di Inspector.");
         }
-        foreach (var prefab in antariksaPrefabs)
-        {
-            GerakObjekAntariksa script = prefab.GetComponent<GerakObjekAntariksa>();
-            if (script == null || (script.category != "Celestial" && script.category != "ManMade"))
-            {
-                Debug.LogError($"Prefab {prefab.name} tidak memiliki GerakObjekAntariksa atau category tidak valid.");
-            }
-        }
-        Debug.Log($"Spawner diinisialisasi: {antariksaPrefabs.Length} prefab, spawnX={spawnX}, spawnY={spawnY}, minDistance={minDistance}");
     }
 
     void Update()
     {
-        if (!enabled)
-        {
-            Debug.LogWarning("Spawner nonaktif, tidak bisa spawn objek.");
-            return;
-        }
+        if (!enabled) return;
+
         timer += Time.deltaTime;
-        if (timer > spawnInterval)
+        if (timer > spawnInterval && IsSafeToSpawn())
         {
-            if (objectsSpawned < GameManager.Instance.GetObjectsToSort() && IsSafeToSpawn())
-            {
-                SpawnObjekAntariksa();
-                timer = 0;
-                objectsSpawned++;
-                Debug.Log($"Spawned object #{objectsSpawned}/{GameManager.Instance.GetObjectsToSort()}");
-            }
-            else
-            {
-                Debug.Log($"Tidak bisa spawn: objectsSpawned={objectsSpawned}, max={GameManager.Instance.GetObjectsToSort()}, safeToSpawn={IsSafeToSpawn()}");
-            }
+            SpawnObjekAntariksa();
+            timer = 0;
         }
     }
 
@@ -70,32 +47,7 @@ public class MunculObjekAntariksa : MonoBehaviour
 
     void SpawnObjekAntariksa()
     {
-        string nextCategory = (lastCategory == "Celestial") ? "ManMade" : "Celestial";
-        List<GameObject> validPrefabs = new List<GameObject>();
-        foreach (var prefab in antariksaPrefabs)
-        {
-            GerakObjekAntariksa script = prefab.GetComponent<GerakObjekAntariksa>();
-            if (script != null && script.category == nextCategory)
-            {
-                validPrefabs.Add(prefab);
-            }
-        }
-
-        if (validPrefabs.Count == 0)
-        {
-            Debug.LogWarning($"Tidak ada prefab untuk {nextCategory}. Menggunakan kategori lain.");
-            nextCategory = (nextCategory == "Celestial") ? "ManMade" : "Celestial";
-            foreach (var prefab in antariksaPrefabs)
-            {
-                GerakObjekAntariksa script = prefab.GetComponent<GerakObjekAntariksa>();
-                if (script != null && script.category == nextCategory)
-                {
-                    validPrefabs.Add(prefab);
-                }
-            }
-        }
-
-        GameObject prefabToSpawn = validPrefabs[Random.Range(0, validPrefabs.Count)];
+        GameObject prefabToSpawn = antariksaPrefabs[Random.Range(0, antariksaPrefabs.Length)];
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
         GameObject newObj = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
@@ -111,16 +63,13 @@ public class MunculObjekAntariksa : MonoBehaviour
             objScript.SetSpeed(GameManager.Instance.GetObjectSpeed());
         }
 
-        lastCategory = nextCategory;
-        Debug.Log($"Objek {newObj.name} di-spawn (Kategori: {nextCategory}), Jarak: {GameManager.Instance.GetObjectSpeed() * spawnInterval}");
+        Debug.Log($"Objek {newObj.name} di-spawn secara acak.");
     }
 
     public void ResetForNewLevel(float newInterval)
     {
         spawnInterval = newInterval;
-        objectsSpawned = 0;
         timer = 0;
-        lastCategory = "";
         enabled = true;
         Debug.Log($"Spawner direset untuk level baru: interval={newInterval}");
     }
@@ -128,10 +77,8 @@ public class MunculObjekAntariksa : MonoBehaviour
     public void ResetSpawner()
     {
         spawnInterval = GameManager.Instance.GetSpawnInterval();
-        objectsSpawned = 0;
         timer = 0;
-        lastCategory = "";
         enabled = true;
-        Debug.Log($"Spawner direset sepenuhnya: interval={spawnInterval}, objectsSpawned={objectsSpawned}, enabled={enabled}");
+        Debug.Log($"Spawner direset sepenuhnya: interval={spawnInterval}, enabled={enabled}");
     }
 }

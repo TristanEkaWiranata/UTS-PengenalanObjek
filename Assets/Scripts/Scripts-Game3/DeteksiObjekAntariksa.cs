@@ -38,26 +38,24 @@ public class DeteksiObjekAntariksa : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            int baseScore = 25;
-            float timeBonus = GameManager.Instance.GetTimeRemaining() / GameManager.Instance.GetLevelTime();
-            int finalScore = Mathf.RoundToInt(baseScore * (1 + timeBonus));
+            int finalScore = 25;
             GameManager.Instance.AddScore(finalScore);
             objectsSorted++;
+
             if (textScore != null)
-            {
                 textScore.text = GameManager.Instance.GetScore().ToString();
-            }
+
             mediaPlayerBenar.Play();
-            Debug.Log($"Objek {collision.gameObject.name} benar di {gameObject.name}. Skor: +{finalScore} (Bonus waktu: {timeBonus:F2}), objectsSorted={objectsSorted}");
+            Debug.Log($"Objek {collision.gameObject.name} benar di {gameObject.name}. Skor: +{finalScore}, objectsSorted={objectsSorted}");
         }
         else
         {
             GameManager.Instance.AddScore(-5);
             objectsSorted++;
+
             if (textScore != null)
-            {
                 textScore.text = GameManager.Instance.GetScore().ToString();
-            }
+
             mediaPlayerSalah.Play();
             Debug.Log($"Objek {collision.gameObject.name} salah di {gameObject.name}. Skor: -5, objectsSorted={objectsSorted}");
         }
@@ -77,6 +75,7 @@ public class DeteksiObjekAntariksa : MonoBehaviour
     public void ResetDetector()
     {
         objectsSorted = 0;
+
         if (textScore != null)
         {
             textScore.text = GameManager.Instance.GetScore().ToString();
