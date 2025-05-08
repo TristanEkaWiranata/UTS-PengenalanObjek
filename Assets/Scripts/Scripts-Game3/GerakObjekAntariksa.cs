@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GerakObjekAntariksa : MonoBehaviour
 {
-    private float speed;                      // Kecepatan gerak ke kiri
-    public string category;                   // "Celestial" atau "ManMade"
-    public Sprite[] sprites;                  // Array sprite untuk pemilihan acak (opsional)
+    private float speed;
+    public string category; // "Celestial" atau "ManMade"
+    public Sprite[] sprites; // Array sprite untuk pemilihan acak
     private Vector3 screenPoint;
     private Vector3 offset;
     private float firstY;
@@ -14,7 +14,6 @@ public class GerakObjekAntariksa : MonoBehaviour
 
     void Start()
     {
-        // Validasi dan set tag berdasarkan kategori
         if (string.IsNullOrEmpty(category) || (category != "Celestial" && category != "ManMade"))
         {
             Debug.LogError($"Category tidak valid pada {gameObject.name}. Harus 'Celestial' atau 'ManMade'. Menggunakan default: Celestial");
@@ -22,7 +21,6 @@ public class GerakObjekAntariksa : MonoBehaviour
         }
         gameObject.tag = category;
 
-        // Validasi BoxCollider2D
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         if (collider == null)
         {
@@ -34,44 +32,52 @@ public class GerakObjekAntariksa : MonoBehaviour
             Debug.LogWarning($"BoxCollider2D pada {gameObject.name} bukan trigger. Mengatur IsTrigger = true.");
             collider.isTrigger = true;
         }
-        // Sesuaikan ukuran collider agar cukup besar
         if (collider.size.magnitude < 0.5f)
         {
             Debug.LogWarning($"BoxCollider2D pada {gameObject.name} terlalu kecil. Mengatur ukuran ke (1, 1).");
             collider.size = new Vector2(1f, 1f);
         }
 
-        // (Opsional) Pilih sprite acak jika array sprites diisi
-        if (sprites != null && sprites.Length > 0)
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError($"SpriteRenderer tidak ditemukan pada {gameObject.name}.");
+        }
+        else if (sprites != null && sprites.Length > 0)
         {
             int index = Random.Range(0, sprites.Length);
-            GetComponent<SpriteRenderer>().sprite = sprites[index];
+            spriteRenderer.sprite = sprites[index];
+            Debug.Log($"Sprite diatur untuk {gameObject.name}: {sprites[index].name}");
+        }
+        else
+        {
+            Debug.LogWarning($"Array sprites kosong atau null pada {gameObject.name}. Menggunakan sprite default.");
         }
 
-        // Simpan posisi Y awal
+        if (gameObject.layer == LayerMask.NameToLayer("Ignore Raycast"))
+        {
+            Debug.LogWarning($"Objek {gameObject.name} ada di layer Ignore Raycast. Mengubah ke Default.");
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+
         firstY = transform.position.y;
-        // Set kecepatan awal dari LevelManager
-        speed = LevelManager.Instance.GetObjectSpeed();
-        // Normalisasi ukuran sprite
+        speed = GameManager.Instance.GetObjectSpeed();
         NormalizeSpriteSize normalizer = GetComponent<NormalizeSpriteSize>();
         if (normalizer != null)
         {
             normalizer.NormalizeSize();
         }
 
-        // Verifikasi tag dan collider
-        Debug.Log($"Objek {gameObject.name} memiliki tag: {gameObject.tag}, Collider: {collider.size}, IsTrigger: {collider.isTrigger}");
+        Debug.Log($"Objek {gameObject.name} - Tag: {gameObject.tag}, Collider: {collider.size}, IsTrigger: {collider.isTrigger}, Layer: {LayerMask.LayerToName(gameObject.layer)}, Sprites Count: {(sprites != null ? sprites.Length : 0)}");
     }
 
     void Update()
     {
-        // Jika tidak sedang di-drag, objek bergerak ke kiri
         if (!isDragging)
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
         }
 
-        // Hapus objek jika terlalu jauh ke kiri
         if (transform.position.x < -10f)
         {
             Destroy(gameObject);
@@ -83,7 +89,7 @@ public class GerakObjekAntariksa : MonoBehaviour
         isDragging = true;
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-        Debug.Log($"Mulai drag pada {gameObject.name}");
+        Debug.Log($"Mulai drag pada {gameObject.name}, Category: {category}, Position: {transform.position}");
     }
 
     void OnMouseDrag()
@@ -96,9 +102,8 @@ public class GerakObjekAntariksa : MonoBehaviour
     void OnMouseUp()
     {
         isDragging = false;
-        // Kunci posisi Y agar tetap di jalur
         transform.position = new Vector3(transform.position.x, firstY, transform.position.z);
-        Debug.Log($"Akhir drag pada {gameObject.name} di posisi {transform.position}");
+        Debug.Log($"Akhir drag pada {gameObject.name}, Category: {category}, Position: {transform.position}");
     }
 
     public void SetSpeed(float newSpeed)

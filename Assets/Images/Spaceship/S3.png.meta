@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: cae069724627508448678d7c7d93587d
+guid: 9f8fb1bf3ee785d44a3c5fe08ab74da5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5290065940187861135
-    second: Hello-Space_-WhiteBG_0
-  - first:
-      213: -2146696505472191990
-    second: Hello-Space_-WhiteBG_1
-  - first:
-      213: -6889626901095624021
-    second: Hello-Space_-WhiteBG_2
-  - first:
-      213: 7073020234459611939
-    second: Hello-Space_-WhiteBG_3
-  - first:
-      213: -4497408935836430853
-    second: Hello-Space_-WhiteBG_4
+      213: -8785097096390948511
+    second: g3600_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 600
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -84,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 2
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hello-Space_-WhiteBG_0
+      name: g3600_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 243
-        width: 57
-        height: 124
+        x: 0
+        y: 0
+        width: 1315
+        height: 1498
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,96 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17fa5bc2e09e596b0800000000000000
-      internalID: -5290065940187861135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hello-Space_-WhiteBG_1
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 254
-        width: 51
-        height: 84
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a02f1c6e6e66532e0800000000000000
-      internalID: -2146696505472191990
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hello-Space_-WhiteBG_2
-      rect:
-        serializedVersion: 2
-        x: 148
-        y: 241
-        width: 38
-        height: 117
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba2583516d02360a0800000000000000
-      internalID: -6889626901095624021
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hello-Space_-WhiteBG_3
-      rect:
-        serializedVersion: 2
-        x: 189
-        y: 247
-        width: 135
-        height: 115
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3238d14cd6a682260800000000000000
-      internalID: 7073020234459611939
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hello-Space_-WhiteBG_4
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 107
-        width: 267
-        height: 144
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bfd4dc1b66ef591c0800000000000000
-      internalID: -4497408935836430853
+      spriteID: 1694d4c7cb0151680800000000000000
+      internalID: -8785097096390948511
       vertices: []
       indices: 
       edges: []
@@ -248,11 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hello-Space_-WhiteBG_0: -5290065940187861135
-      Hello-Space_-WhiteBG_1: -2146696505472191990
-      Hello-Space_-WhiteBG_2: -6889626901095624021
-      Hello-Space_-WhiteBG_3: 7073020234459611939
-      Hello-Space_-WhiteBG_4: -4497408935836430853
+      g3600_0: -8785097096390948511
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
