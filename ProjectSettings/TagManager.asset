@@ -20,6 +20,9 @@ TagManager:
   - PlayAgainButton
   - QuitButton
   - Paddle
+  - Ball
+  - GameManager
+  - BGM
   layers:
   - Default
   - TransparentFX
