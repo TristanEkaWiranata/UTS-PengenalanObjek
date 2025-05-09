@@ -5,79 +5,57 @@ using UnityEngine.SceneManagement;
 public class DragonBallGameManager : MonoBehaviour
 {
     public static DragonBallGameManager instance; // Singleton
+    public static string lastGameOverMessage;     // Digunakan oleh scene GameOver
 
+    public enum GameMode { PVP, PVE }
+    public GameMode currentMode;
+
+    [Header("Game Settings")]
     public float gameTime = 120f;
-    public Text timerText;
-    public GameObject gameOverUI;  // UI untuk Game Over
-    public Text gameOverText;  // Teks untuk menampilkan pesan Game Over (Pemenang atau Waktu Habis)
-    private bool gameEnded = false;
 
+    [Header("UI References")]
+    public Text timerText;
+
+    [Header("Audio")]
+    public AudioSource bgmAudioSource;
+
+    private bool gameEnded = false;
     public int player1Score = 0;
     public int player2Score = 0;
 
-    // Tambahkan referensi untuk AudioSource BGM
-    public AudioSource bgmAudioSource;
-
-    // Referensi untuk tombol Restart dan Quit
-    public Button restartButton;
-    public Button quitButton;
-
     void Awake()
     {
+        // Singleton pattern
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
+            return;
+        }
     }
 
     void Start()
-        {
-            if (bgmAudioSource != null)
+    {
+        // Ambil mode dari PlayerPrefs
+        string mode = PlayerPrefs.GetString("GameMode", "PVP"); // Default to PVP
+        currentMode = (mode == "PVE") ? GameMode.PVE : GameMode.PVP;
+
+        // Setup BGM
+        if (bgmAudioSource != null)
         {
             DontDestroyOnLoad(bgmAudioSource.gameObject);
-        }
-
-        // Pastikan Game Over UI dinonaktifkan pada awal permainan
-        if (gameOverUI != null)
-        {
-            gameOverUI.SetActive(false); // Menyembunyikan UI Game Over pada saat game mulai
-        }
-
-        // Menambahkan listener untuk tombol restart dan quit
-        if (restartButton != null)
-        {
-            restartButton.onClick.AddListener(RestartGame); // Ketika tombol restart diklik, panggil RestartGame
-        }
-
-        if (quitButton != null)
-        {
-            quitButton.onClick.AddListener(QuitGame); // Ketika tombol quit diklik, panggil QuitGame
-        }if (bgmAudioSource != null)
-        {
-            DontDestroyOnLoad(bgmAudioSource.gameObject);
-        }
-
-        // Pastikan Game Over UI dinonaktifkan pada awal permainan
-        if (gameOverUI != null)
-        {
-            gameOverUI.SetActive(false); // Menyembunyikan UI Game Over pada saat game mulai
-        }
-
-        // Menambahkan listener untuk tombol restart dan quit
-        if (restartButton != null)
-        {
-            restartButton.onClick.AddListener(RestartGame); // Ketika tombol restart diklik, panggil RestartGame
-        }
-
-        if (quitButton != null)
-        {
-            quitButton.onClick.AddListener(QuitGame); // Ketika tombol quit diklik, panggil QuitGame
+            if (!bgmAudioSource.isPlaying)
+                bgmAudioSource.Play();
         }
     }
 
     void Update()
     {
-        if (gameEnded) return;  // Jangan update jika game sudah berakhir
+        if (gameEnded) return;
 
         gameTime -= Time.deltaTime;
 
@@ -103,6 +81,14 @@ public class DragonBallGameManager : MonoBehaviour
         }
     }
 
+    public void SetGameMode(GameMode mode)
+    {
+        if (currentMode != mode)  // Pastikan mode tidak berubah terus-menerus
+        {
+            currentMode = mode;
+        }
+    }
+
     public void AddScore(int playerNumber)
     {
         if (playerNumber == 1)
@@ -114,41 +100,24 @@ public class DragonBallGameManager : MonoBehaviour
     void GameOver(string reason)
     {
         gameEnded = true;
-        Debug.Log("Game Over: " + reason);
+        lastGameOverMessage = reason;
 
-        // Hentikan BGM saat game berakhir
         if (bgmAudioSource != null)
-        {
-            bgmAudioSource.Stop(); // Stop the BGM
-        }
+            bgmAudioSource.Stop();
 
-        // Menampilkan Game Over UI dan menampilkan pesan pemenang
-        if (gameOverUI != null)
-        {
-            gameOverUI.SetActive(true);  // Mengaktifkan UI Game Over
-            if (gameOverText != null)
-            {
-                gameOverText.text = reason;  // Menampilkan pesan Game Over (pemenang atau waktu habis)
-            }
-        }
-
-        Time.timeScale = 0f; // Freeze game
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("GameOverDragonBall");
     }
 
-    // Fungsi untuk Restart game
     public void RestartGame()
     {
-        Time.timeScale = 1f;  // Restart permainan
-        if (GameManager.Instance != null)
-            GameManager.Instance.ResetGame();
-
+        Time.timeScale = 1f;
         SceneManager.LoadScene("GameSceneDragonBall");
     }
 
-    // Fungsi untuk Quit game
     public void QuitGame()
     {
-        Debug.Log("Exiting Game...");
+        Time.timeScale = 1f;
         SceneManager.LoadScene("GameSelection");
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class BallGoalDetector : MonoBehaviour
 {
+    private AudioSource audioSource;
     public int scorePlayer1 = 0;
     public int scorePlayer2 = 0;
     public Text Player1Score;
@@ -18,6 +19,12 @@ public class BallGoalDetector : MonoBehaviour
         {
             Debug.LogError("Ball object is not assigned.");
         }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource not found on Ball.");
+        }
         
         // Ambil referensi ke Rigidbody2D bola
         ballRigidbody = ball.GetComponent<Rigidbody2D>();
@@ -26,6 +33,17 @@ public class BallGoalDetector : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+         if (collision.gameObject.CompareTag("Paddle") || collision.gameObject.CompareTag("Ground"))
+        {
+            if (audioSource != null)
+            {
+                audioSource.Play(); // Mainkan suara hit
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
