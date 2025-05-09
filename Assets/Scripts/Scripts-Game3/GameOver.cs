@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour
     public Text finalScoreText;
     public Text finalLevelText;
     public Button playAgainButton;
-    public Button quitButton;
+    // public Button quitButton;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class GameOver : MonoBehaviour
         });
 
         SetupButton(ref playAgainButton, "PlayAgain", PlayAgain);
-        SetupButton(ref quitButton, "Quit", QuitGame);
+        // SetupButton(ref quitButton, "Quit", QuitGame);
     }
 
     void EnsureEventSystem()
@@ -107,12 +107,9 @@ public class GameOver : MonoBehaviour
         SceneManager.LoadScene("Game3Scene");
     }
 
-    void QuitGame()
-    {
-        Debug.Log("Quit ditekan. Reset game sebelum kembali ke GameSelection.");
-        if (GameManager.Instance != null)
-            GameManager.Instance.ResetGame();
-
-        SceneManager.LoadScene("GameSelection");
-    }
+    // void QuitGame()
+    // {
+    //     Debug.Log("Quit ditekan. Kembali ke GameSelection.");
+    //     SceneManager.LoadScene("GameSelection");
+    // }
 }
