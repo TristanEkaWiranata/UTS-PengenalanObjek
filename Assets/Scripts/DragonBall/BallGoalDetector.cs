@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class BallGoalDetector : MonoBehaviour
 {
+    private AudioSource audioSource;
     public int scorePlayer1 = 0;
     public int scorePlayer2 = 0;
     public Text Player1Score;
@@ -18,6 +19,12 @@ public class BallGoalDetector : MonoBehaviour
         {
             Debug.LogError("Ball object is not assigned.");
         }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource not found on Ball.");
+        }
         
         // Ambil referensi ke Rigidbody2D bola
         ballRigidbody = ball.GetComponent<Rigidbody2D>();
@@ -26,6 +33,17 @@ public class BallGoalDetector : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+         if (collision.gameObject.CompareTag("Paddle") || collision.gameObject.CompareTag("Ground"))
+        {
+            if (audioSource != null)
+            {
+                audioSource.Play(); // Mainkan suara hit
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -40,14 +58,17 @@ public class BallGoalDetector : MonoBehaviour
         {
             scorePlayer2++;
             Player2Score.text = scorePlayer2.ToString();
+            DragonBallGameManager.instance.AddScore(2); // Tambah skor ke GameManager
             ResetBall();
         }
         else if (other.CompareTag("GoalPlayer2"))
         {
             scorePlayer1++;
             Player1Score.text = scorePlayer1.ToString();
+            DragonBallGameManager.instance.AddScore(1); // Tambah skor ke GameManager
             ResetBall();
         }
+
     }
 
     // Fungsi untuk mengatur bola kembali ke tengah
@@ -61,11 +82,6 @@ public class BallGoalDetector : MonoBehaviour
 
             // Atur posisi bola ke tengah
             ball.transform.position = resetPosition;
-
-            // Jika ingin bola bergerak setelah beberapa detik, Anda bisa menggunakan ini:
-            // Setelah beberapa detik, aktifkan kecepatan bola lagi atau gerakkan bola secara manual
-            // Misalnya, Anda bisa memberikan sedikit gaya agar bola melanjutkan permainan.
-            // ballRigidbody.velocity = new Vector2(1f, 0); // Gaya ke kanan untuk memulai kembali
         }
     }
 }

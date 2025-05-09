@@ -19,6 +19,7 @@ TagManager:
   - FinalLevelText
   - PlayAgainButton
   - QuitButton
+  - Paddle
   layers:
   - Default
   - TransparentFX
