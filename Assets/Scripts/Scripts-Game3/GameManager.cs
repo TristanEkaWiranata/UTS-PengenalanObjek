@@ -172,18 +172,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // void PlayAgain()
+    // {
+    //     Debug.Log("Play Again ditekan dari WinPanel.");
+    //     ResetGame();
+    //     if (winPanel != null)
+    //     {
+    //         winPanel.SetActive(false);
+    //     }
+    // }
+
+    // void ExitGame()
+    // {
+    //     SceneManager.LoadScene("GameSelection");
+    // }
+
     void PlayAgain()
     {
-        Debug.Log("Play Again ditekan dari WinPanel.");
-        ResetGame();
-        if (winPanel != null)
-        {
-            winPanel.SetActive(false);
-        }
+        Debug.Log("Button Play Again ditekan.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
+
+        SceneManager.LoadScene("Game3Scene");
     }
 
     void ExitGame()
     {
+        Debug.Log("Quit ditekan. Reset game sebelum kembali ke GameSelection.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
+
         SceneManager.LoadScene("GameSelection");
     }
 
