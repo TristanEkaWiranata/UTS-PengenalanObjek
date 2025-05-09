@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
     public Text levelText;
     public Text timerText;
     public Image[] hearts;
-    public Text winText;
+    public GameObject winPanel; // Panel untuk UI kemenangan
+    public Text winText; // Teks di dalam WinPanel
+    public Button playAgainButton; // Tombol Play Again di WinPanel
+    public Button exitButton; // Tombol Exit di WinPanel
     public AudioClip levelUpSound;
     public AudioSource audioSource;
 
@@ -18,8 +21,8 @@ public class GameManager : MonoBehaviour
     private float timeRemaining;
     private bool isGameActive = false;
     private readonly int[] scoreThresholds = { 200, 400, 700, 1000 };
-    private readonly float[] spawnIntervals = { 1.0f, 0.8f, 0.67f, 0.5f, 0.4f };
-    private readonly float[] objectSpeeds = { 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+    private readonly float[] spawnIntervals = { 1.0f, 0.8f, 0.67f, 0.6f, 0.5f };
+    private readonly float[] objectSpeeds = { 4.0f, 5.0f, 6.0f, 6.2f, 6.5f };
     private readonly int[] objectsToSort = { 100, 200, 300, 400, 500 };
     private readonly float[] levelTimes = { 60f, 50f, 40f, 30f, 20f };
 
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "Game3Scene")
         {
+            Debug.Log("Scene Game3Scene dimuat, menginisialisasi ulang UI.");
             InitializeUI();
             UpdateLevelUI();
             UpdateTimerUI();
@@ -61,7 +65,10 @@ public class GameManager : MonoBehaviour
             levelText = null;
             timerText = null;
             hearts = new Image[3];
+            winPanel = null;
             winText = null;
+            playAgainButton = null;
+            exitButton = null;
         }
     }
 
@@ -73,6 +80,7 @@ public class GameManager : MonoBehaviour
             audioSource.clip = levelUpSound;
         }
         ResetGame();
+        Debug.Log("GameManager Start: Game direset.");
     }
 
     void Update()
@@ -94,7 +102,6 @@ public class GameManager : MonoBehaviour
         {
             lives--;
             UpdateLivesUI();
-            Debug.Log($"Nyawa berkurang: Lives={lives}");
             if (lives <= 0)
             {
                 TriggerGameOver();
@@ -121,17 +128,63 @@ public class GameManager : MonoBehaviour
             timeRemaining = 0;
             isGameActive = false;
             SaveHighScore();
-            if (winText != null)
+
+            if (winPanel != null)
             {
-                winText.text = "Selamat, kamu telah menyelesaikan game!";
-                winText.gameObject.SetActive(true);
-                Debug.Log("Game selesai, menampilkan pesan kemenangan.");
+                winPanel.SetActive(true);
+                if (winText != null)
+                {
+                    winText.text = "Selamat, kamu telah menyelesaikan game!";
+                }
+                else
+                {
+                    Debug.LogWarning("winText tidak ditemukan di WinPanel.");
+                }
+
+                // Atur tombol Play Again
+                if (playAgainButton != null)
+                {
+                    playAgainButton.onClick.RemoveAllListeners();
+                    playAgainButton.onClick.AddListener(PlayAgain);
+                    Debug.Log("PlayAgainButton diatur.");
+                }
+                else
+                {
+                    Debug.LogWarning("PlayAgainButton tidak ditemukan di WinPanel.");
+                }
+
+                // Atur tombol Exit
+                if (exitButton != null)
+                {
+                    exitButton.onClick.RemoveAllListeners();
+                    exitButton.onClick.AddListener(ExitGame);
+                    Debug.Log("ExitButton diatur.");
+                }
+                else
+                {
+                    Debug.LogWarning("ExitButton tidak ditemukan di WinPanel.");
+                }
             }
             else
             {
-                Debug.LogWarning("winText tidak ditemukan, tidak bisa menampilkan pesan kemenangan.");
+                Debug.LogWarning("WinPanel tidak ditemukan, tidak bisa menampilkan UI kemenangan.");
             }
         }
+    }
+
+    void PlayAgain()
+    {
+        Debug.Log("Play Again ditekan dari WinPanel.");
+        ResetGame();
+        if (winPanel != null)
+        {
+            winPanel.SetActive(false);
+        }
+    }
+
+    void ExitGame()
+    {
+        SceneManager.LoadScene("GameSelection");
     }
 
     public void AddScore(int points)
@@ -144,7 +197,6 @@ public class GameManager : MonoBehaviour
     public void ResetScore()
     {
         score = 0;
-        Debug.Log("Skor direset ke 0.");
     }
 
     public int GetScore()
@@ -154,7 +206,6 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
-        Debug.Log("ResetGame: Memulai...");
         score = 0;
         currentLevel = 1;
         lives = 3;
@@ -169,10 +220,11 @@ public class GameManager : MonoBehaviour
             ResetDetectors();
         }
 
-        if (winText != null)
+        if (winPanel != null)
         {
-            winText.gameObject.SetActive(false);
+            winPanel.SetActive(false);
         }
+        Debug.Log($"ResetGame selesai: Skor={score}, Level={currentLevel}, Lives={lives}, Timer={timeRemaining}, Active={isGameActive}");
     }
 
     private void InitializeUI()
@@ -211,15 +263,46 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        GameObject winTextObj = GameObject.Find("WinText");
-        if (winTextObj != null)
+        // Inisialisasi WinPanel dan komponennya
+        GameObject winPanelObj = GameObject.Find("WinPanel");
+        if (winPanelObj != null)
         {
-            winText = winTextObj.GetComponent<Text>();
-            winText.gameObject.SetActive(false);
+            winPanel = winPanelObj;
+            winPanel.SetActive(false);
+
+            GameObject winTextObj = GameObject.Find("WinText");
+            if (winTextObj != null)
+            {
+                winText = winTextObj.GetComponent<Text>();
+            }
+            else
+            {
+                Debug.LogWarning("WinText tidak ditemukan di WinPanel.");
+            }
+
+            GameObject playAgainButtonObj = GameObject.Find("PlayAgainButton");
+            if (playAgainButtonObj != null)
+            {
+                playAgainButton = playAgainButtonObj.GetComponent<Button>();
+            }
+            else
+            {
+                Debug.LogWarning("PlayAgainButton tidak ditemukan di WinPanel.");
+            }
+
+            GameObject exitButtonObj = GameObject.Find("ExitButton");
+            if (exitButtonObj != null)
+            {
+                exitButton = exitButtonObj.GetComponent<Button>();
+            }
+            else
+            {
+                Debug.LogWarning("ExitButton tidak ditemukan di WinPanel.");
+            }
         }
         else
         {
-            Debug.LogWarning("WinText tidak ditemukan. Pastikan ada GameObject bernama 'WinText' di Game3Scene.");
+            Debug.LogWarning("WinPanel tidak ditemukan. Pastikan ada GameObject bernama 'WinPanel' di Game3Scene.");
         }
 
         UpdateLevelUI();
@@ -263,7 +346,6 @@ public class GameManager : MonoBehaviour
                 }
                 UpdateLevelUI();
                 UpdateGameDifficulty();
-                Debug.Log($"Level naik ke {currentLevel}, Timer={timeRemaining}");
 
                 if (currentLevel >= 5)
                 {
