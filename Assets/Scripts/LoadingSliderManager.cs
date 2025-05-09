@@ -13,6 +13,9 @@ public class LoadingSliderManager : MonoBehaviour
 
     void Start()
     {
+        if (LoadingSlider != null)
+            LoadingSlider.value = 0f;
+
         StartCoroutine(AnimateLoadingText());
         StartCoroutine(LoadSceneAsync(sceneToLoad));
     }
@@ -22,28 +25,30 @@ public class LoadingSliderManager : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
 
-        float fakeProgress = 0f;
+        float displayProgress = 0f;
 
-        while (fakeProgress < 0.9f)
+        while (operation.progress < 0.9f)
         {
-            fakeProgress += Time.deltaTime * 0.3f;
-            LoadingSlider.value = Mathf.Clamp01(fakeProgress);
+            float targetProgress = Mathf.Clamp01(operation.progress / 0.9f);
+            displayProgress = Mathf.MoveTowards(displayProgress, targetProgress, Time.deltaTime * 0.3f); // Delay visual
+            if (LoadingSlider != null)
+                LoadingSlider.value = displayProgress;
+
             yield return null;
         }
 
-        LoadingSlider.value = 0.9f;
+        // Pastikan slider penuh sebelum aktivasi
+        while (displayProgress < 1f)
+        {
+            displayProgress = Mathf.MoveTowards(displayProgress, 1f, Time.deltaTime * 0.3f);
+            if (LoadingSlider != null)
+                LoadingSlider.value = displayProgress;
+            yield return null;
+        }
 
-        while (!operation.isDone)
-         {
-             if (operation.progress >= 0.9f)
-             {
-                 LoadingSlider.value = 1f;
-                 operation.allowSceneActivation = true;
-                 yield return null; // Tambahkan yield di sini untuk sedikit menunda sebelum pindah frame visual
-             }
-
-             yield return null;
-         }
+        // Delay singkat untuk transisi yang halus
+        yield return new WaitForSeconds(0.5f);
+        operation.allowSceneActivation = true;
     }
 
     IEnumerator AnimateLoadingText()

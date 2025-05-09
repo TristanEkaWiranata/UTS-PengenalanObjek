@@ -12,8 +12,6 @@ public class GameOver : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("GameOver Start: Inisialisasi...");
-
         EnsureEventSystem();
 
         SetupText(ref finalScoreText, "score", () =>
@@ -45,7 +43,6 @@ public class GameOver : MonoBehaviour
             GameObject eventSystem = new GameObject("EventSystem");
             eventSystem.AddComponent<EventSystem>();
             eventSystem.AddComponent<StandaloneInputModule>();
-            Debug.Log("EventSystem otomatis ditambahkan.");
         }
     }
 
@@ -62,7 +59,6 @@ public class GameOver : MonoBehaviour
         }
 
         textComponent.text = getText();
-        Debug.Log($"{textComponent.name} diatur: {textComponent.text}");
     }
 
     void SetupButton(ref Button buttonComponent, string keyword, UnityEngine.Events.UnityAction action)
@@ -104,7 +100,7 @@ public class GameOver : MonoBehaviour
 
     void PlayAgain()
     {
-        Debug.Log("Play Again ditekan.");
+        Debug.Log("Button Play Again ditekan.");
         if (GameManager.Instance != null)
             GameManager.Instance.ResetGame();
 
@@ -113,7 +109,10 @@ public class GameOver : MonoBehaviour
 
     void QuitGame()
     {
-        Debug.Log("Quit ditekan. Kembali ke GameSelection.");
+        Debug.Log("Quit ditekan. Reset game sebelum kembali ke GameSelection.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
+
         SceneManager.LoadScene("GameSelection");
     }
 }
