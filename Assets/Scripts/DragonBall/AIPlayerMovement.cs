@@ -1,100 +1,102 @@
 using UnityEngine;
+using System.Collections;
 
-public class AIPlayerMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+public class AIPlayerMovement : MonoBehaviour 
 {
-    public Transform ball;
+    public Transform target;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+
     public float moveSpeed = 5f;
     public float jumpPower = 10f;
-    public float followDistance = 1.5f;
-    public float jumpThreshold = 1.5f;
-
     public float dashSpeed = 15f;
-    public float dashCooldown = 1f;
-    private float lastDashTime = -10f;
+    public float dashDuration = 0.2f;
+    public float jumpThreshold = 2f;
+    public float groundCheckRadius = 0.3f;
 
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.1f;
-    public LayerMask groundLayer;
+    private bool isFacingRight = true;
+    private bool isDashing = false;
+    private bool isGrounded = true;
+
+    private int maxJumps = 2;
+    private int jumpCount = 0;
+
+    private float dashTimer;
+    private float lastGroundedTime;
+    private float coyoteTime = 0.1f;
 
     private Rigidbody2D rb;
     private Animator animator;
-    private bool isFacingRight = true;
 
     void Start()
     {
-        // Cek apakah groundCheck dan ball sudah di-assign
-        if (groundCheck == null)
-        {
-            Debug.LogError("GroundCheck belum di-assign!");
-        }
-
-        if (ball == null)
-        {
-            Debug.LogError("Ball belum di-assign!");
-        }
-
-        // Cek apakah Rigidbody2D dan Animator ada
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        if (rb == null)
+        if (target == null)
         {
-            Debug.LogError("Rigidbody2D tidak ditemukan pada objek!");
-        }
-
-        if (animator == null)
-        {
-            Debug.LogError("Animator tidak ditemukan pada objek!");
+            GameObject ball = GameObject.FindGameObjectWithTag("Ball");
+            if (ball != null) target = ball.transform;
         }
     }
 
     void Update()
     {
-        if (ball == null) return; // Jika bola null, stop eksekusi
+        if (target == null || isDashing) return;
 
-        float direction = ball.position.x - transform.position.x;
+        UpdateGroundedStatus();
+        FlipSprite();
 
-        // DASH jika bola cukup jauh & cooldown selesai & grounded
-        if (Mathf.Abs(direction) > 3f && Time.time - lastDashTime > dashCooldown && IsGrounded())
-        {
-            Dash(Mathf.Sign(direction));
-            lastDashTime = Time.time;
-        }
-
-        // Gerakan horizontal jika terlalu jauh dari bola
-        if (Mathf.Abs(direction) > followDistance)
-        {
-            rb.linearVelocity = new Vector2(Mathf.Sign(direction) * moveSpeed, rb.linearVelocity.y);
-            FlipSprite(direction);
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        }
-
-        // LOMPAT jika bola ada cukup tinggi di atas & grounded
-        if (ball.position.y > transform.position.y + jumpThreshold && IsGrounded())
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
-            animator.SetBool("isJumping", true);
-        }
+        float horizontalInput = Mathf.Clamp(target.position.x - transform.position.x, -1f, 1f);
+        rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
+
+        if ((target.position.y > transform.position.y + jumpThreshold) && jumpCount < maxJumps)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+            jumpCount++;
+            isGrounded = false;
+            animator.SetBool("isJumping", true);
+        }
+
+        if (Mathf.Abs(horizontalInput) > 0.9f && IsGrounded())
+        {
+            if (dashTimer <= 0f)
+            {
+                Dash(horizontalInput);
+            }
+        }
     }
 
-    void Dash(float dir)
+    void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(dir * dashSpeed, 0);
-        if (dir < 0)
-            animator.SetTrigger("DashBackward");
-        else
-            animator.SetTrigger("DashForward");
+        if (isDashing)
+        {
+            dashTimer -= Time.fixedDeltaTime;
+            if (dashTimer <= 0f)
+            {
+                isDashing = false;
+            }
+        }
     }
 
-    void FlipSprite(float dir)
+    void UpdateGroundedStatus()
     {
-        if ((isFacingRight && dir < 0) || (!isFacingRight && dir > 0))
+        if (Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer))
+        {
+            isGrounded = true;
+            jumpCount = 0;
+            animator.SetBool("isJumping", false);
+        }
+    }
+
+    void FlipSprite()
+    {
+        float direction = target.position.x - transform.position.x;
+        if ((isFacingRight && direction < 0f) || (!isFacingRight && direction > 0f))
         {
             isFacingRight = !isFacingRight;
             Vector3 scale = transform.localScale;
@@ -103,25 +105,26 @@ public class AIPlayerMovement : MonoBehaviour
         }
     }
 
+    void Dash(float direction)
+    {
+        isDashing = true;
+        dashTimer = dashDuration;
+        rb.linearVelocity = new Vector2(Mathf.Sign(direction) * dashSpeed, 0f);
+
+        if (direction < 0f) animator.SetTrigger("DashBackward");
+        else animator.SetTrigger("DashForward");
+    }
+
     bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        return isGrounded;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        // Pastikan tidak terjadi null reference pada collision
-        if (collision != null && collision.CompareTag("Ground"))
-        {
-            animator.SetBool("isJumping", false);
-        }
-    }
-
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
         if (groundCheck != null)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
