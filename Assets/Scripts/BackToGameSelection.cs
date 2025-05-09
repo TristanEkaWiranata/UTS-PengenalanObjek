@@ -10,6 +10,7 @@ public class BackToGameSelection : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            GameManager.Instance?.ResetGame(); // Reset game jika ada GameManager
             SceneManager.LoadScene(targetScene);
         }
     }
