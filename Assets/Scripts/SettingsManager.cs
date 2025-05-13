@@ -6,6 +6,7 @@ public class SettingsManager : MonoBehaviour
     [Header("UI References")]
     public GameObject settingsPanel;
     public Slider bgmSlider;
+    public Button closeButton; // Tambahkan referensi tombol close
 
     private const string BGM_VOLUME_KEY = "BGM_VOLUME";
 
@@ -15,24 +16,32 @@ public class SettingsManager : MonoBehaviour
         float savedVolume = PlayerPrefs.GetFloat(BGM_VOLUME_KEY, 1.0f);
         bgmSlider.value = savedVolume;
 
-        // Pastikan AudioManager tersedia
         if (AudioManager.instance != null)
         {
             AudioManager.instance.SetBGMVolume(savedVolume);
         }
 
-        // Bersihkan listener lama
         bgmSlider.onValueChanged.RemoveAllListeners();
-
-        // Tambahkan listener baru
         bgmSlider.onValueChanged.AddListener(OnBgmVolumeChanged);
 
-        settingsPanel.SetActive(false); // optional
+        // Tambahkan listener untuk tombol close
+        if (closeButton != null)
+        {
+            closeButton.onClick.RemoveAllListeners();
+            closeButton.onClick.AddListener(CloseSettingsPanel);
+        }
+
+        settingsPanel.SetActive(false);
     }
 
     public void ToggleSettingsPanel()
     {
         settingsPanel.SetActive(!settingsPanel.activeSelf);
+    }
+
+    public void CloseSettingsPanel()
+    {
+        settingsPanel.SetActive(false);
     }
 
     private void OnBgmVolumeChanged(float value)
