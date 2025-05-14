@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 5021098824f57894f8bb44f80a23a63a
+guid: 6c69e5746be334940bd34e5c28029749
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6959302527311757296
-    second: No_0
+      213: 652839822129788373
+    second: Salah_0
+  - first:
+      213: -7197862422986602453
+    second: Salah_1
+  - first:
+      213: 5203095565459406730
+    second: Salah_2
+  - first:
+      213: -389086710695417363
+    second: Salah_3
+  - first:
+      213: 3948448805616217472
+    second: Salah_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +125,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: No_0
+      name: Salah_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 154
-        height: 65
+        x: 17
+        y: 95
+        width: 227
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +140,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ff35e0d6c8649060800000000000000
-      internalID: 6959302527311757296
+      spriteID: 5d5764dfb5a5f0900800000000000000
+      internalID: 652839822129788373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salah_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 15
+        width: 42
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2840cf134e0c1c90800000000000000
+      internalID: -7197862422986602453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salah_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 15
+        width: 44
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f3e9f79db153840800000000000000
+      internalID: 5203095565459406730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salah_3
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 15
+        width: 73
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9ac26b2bfa99af0800000000000000
+      internalID: -389086710695417363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Salah_4
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 15
+        width: 43
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08de198d445bbc630800000000000000
+      internalID: 3948448805616217472
       vertices: []
       indices: 
       edges: []
@@ -138,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      No_0: 6959302527311757296
+      Salah_0: 652839822129788373
+      Salah_1: -7197862422986602453
+      Salah_2: 5203095565459406730
+      Salah_3: -389086710695417363
+      Salah_4: 3948448805616217472
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

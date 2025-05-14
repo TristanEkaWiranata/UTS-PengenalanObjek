@@ -23,6 +23,8 @@ TagManager:
   - Ball
   - GameManager
   - BGM
+  - WinPanel
+  - WinText
   layers:
   - Default
   - TransparentFX

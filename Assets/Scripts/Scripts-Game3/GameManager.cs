@@ -129,6 +129,22 @@ public class GameManager : MonoBehaviour
             isGameActive = false;
             SaveHighScore();
 
+            // Hentikan spawner
+            MunculObjekAntariksa spawner = FindFirstObjectByType<MunculObjekAntariksa>();
+            if (spawner != null)
+            {
+                spawner.enabled = false;
+                Debug.Log("Spawner dinonaktifkan saat menang.");
+            }
+
+            // Hentikan semua objek yang sedang bergerak
+            GerakObjekAntariksa[] movingObjects = FindObjectsByType<GerakObjekAntariksa>(FindObjectsSortMode.None);
+            foreach (var obj in movingObjects)
+            {
+                obj.StopMovement(); // Pastikan kamu punya method ini
+            }
+
+            // Tampilkan UI kemenangan
             if (winPanel != null)
             {
                 winPanel.SetActive(true);
@@ -141,7 +157,6 @@ public class GameManager : MonoBehaviour
                     Debug.LogWarning("winText tidak ditemukan di WinPanel.");
                 }
 
-                // Atur tombol Play Again
                 if (playAgainButton != null)
                 {
                     playAgainButton.onClick.RemoveAllListeners();
@@ -153,7 +168,6 @@ public class GameManager : MonoBehaviour
                     Debug.LogWarning("PlayAgainButton tidak ditemukan di WinPanel.");
                 }
 
-                // Atur tombol Exit
                 if (exitButton != null)
                 {
                     exitButton.onClick.RemoveAllListeners();
@@ -172,18 +186,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     void PlayAgain()
     {
-        Debug.Log("Play Again ditekan dari WinPanel.");
-        ResetGame();
-        if (winPanel != null)
-        {
-            winPanel.SetActive(false);
-        }
+        Debug.Log("Button Play Again ditekan.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
+
+        SceneManager.LoadScene("Game3Scene");
     }
 
     void ExitGame()
     {
+        Debug.Log("Quit ditekan. Kembali ke GameSelection.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
         SceneManager.LoadScene("GameSelection");
     }
 

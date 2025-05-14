@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5021098824f57894f8bb44f80a23a63a
+guid: 634372d272b98d444a14d137e1f76975
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6959302527311757296
-    second: No_0
+      213: -527176271768145279
+    second: BtnQuiz_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: No_0
+      name: BtnQuiz_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 154
-        height: 65
+        width: 400
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ff35e0d6c8649060800000000000000
-      internalID: 6959302527311757296
+      spriteID: 182be3359f71fa8f0800000000000000
+      internalID: -527176271768145279
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      No_0: 6959302527311757296
+      BtnQuiz_0: -527176271768145279
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

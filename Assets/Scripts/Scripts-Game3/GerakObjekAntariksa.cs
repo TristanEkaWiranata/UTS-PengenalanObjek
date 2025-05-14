@@ -11,6 +11,7 @@ public class GerakObjekAntariksa : MonoBehaviour
     private Vector3 offset;
     private float firstY;
     private bool isDragging = false;
+    private bool isStopped = false;
 
     void Start()
     {
@@ -76,6 +77,11 @@ public class GerakObjekAntariksa : MonoBehaviour
             transform.Translate(Vector2.left * speed * Time.deltaTime);
         }
 
+        // if (!isStopped)
+        // {
+        //     transform.Translate(Vector3.down * speed * Time.deltaTime);
+        // }
+
         if (transform.position.x < -10f)
         {
             Destroy(gameObject);
@@ -105,5 +111,10 @@ public class GerakObjekAntariksa : MonoBehaviour
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
+    }
+
+    public void StopMovement()
+    {
+        isStopped = true;
     }
 }

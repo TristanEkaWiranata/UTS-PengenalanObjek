@@ -107,9 +107,11 @@ public class GameOver : MonoBehaviour
         SceneManager.LoadScene("Game3Scene");
     }
 
-    // void QuitGame()
-    // {
-    //     Debug.Log("Quit ditekan. Kembali ke GameSelection.");
-    //     SceneManager.LoadScene("GameSelection");
-    // }
+    void QuitGame()
+    {
+        Debug.Log("Quit ditekan. Kembali ke GameSelection.");
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetGame();
+        SceneManager.LoadScene("GameSelection");
+    }
 }

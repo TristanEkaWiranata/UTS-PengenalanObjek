@@ -1043,6 +1043,8 @@ GameObject:
   - component: {fileID: 629590043}
   - component: {fileID: 629590045}
   - component: {fileID: 629590048}
+  - component: {fileID: 629590049}
+  - component: {fileID: 629590050}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -1094,6 +1096,33 @@ MonoBehaviour:
   maxGameTime: 60
   timerText: {fileID: 1467541428}
   bgmAudioSource: {fileID: 1407500740}
+--- !u!114 &629590049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629590041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 527a0996d7d0e5b49a8793c84255b670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneBGM: {fileID: 8300000, guid: 160ae0a891e5c6840a03d02f2215e429, type: 3}
+  bgmVolume: 0.4
+--- !u!114 &629590050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629590041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7642cf8541681494d9cb5b5347e2d88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScene: GameSelection
 --- !u!1 &690568109
 GameObject:
   m_ObjectHideFlags: 0
@@ -2571,11 +2600,11 @@ PrefabInstance:
     - target: {fileID: 8073734299129548306, guid: ad50d9fbd2fd12c47aa626a47cdce8c9, type: 3}
       propertyPath: m_Resource
       value: 
-      objectReference: {fileID: 8300000, guid: 160ae0a891e5c6840a03d02f2215e429, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 8073734299129548306, guid: ad50d9fbd2fd12c47aa626a47cdce8c9, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 160ae0a891e5c6840a03d02f2215e429, type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
