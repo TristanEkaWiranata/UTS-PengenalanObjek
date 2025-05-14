@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingSlider: {fileID: 886549924}
   LoadingText: {fileID: 1543145951}
-  sceneToLoad: GameSceneHelloSpace
+  sceneToLoad: HomeHelloSpace
 --- !u!4 &299714223
 Transform:
   m_ObjectHideFlags: 0

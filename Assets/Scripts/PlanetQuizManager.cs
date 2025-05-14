@@ -27,6 +27,9 @@ public class PlanetQuizManager : MonoBehaviour
 
     public Text timerText;
     public Text scoreText;
+    public GameObject resultPanel;
+    public Text resultText;
+    public Text finalScoreText;
 
     public AudioSource audioSource;
     public AudioClip correctSFX;
@@ -47,6 +50,7 @@ public class PlanetQuizManager : MonoBehaviour
         randomizedQuestions = randomizedQuestions.GetRange(0, Mathf.Min(5, randomizedQuestions.Count));
 
         feedbackPanel.SetActive(false);
+        resultPanel.SetActive(false);
         infoText.text = "";
         LoadQuestion();
     }
@@ -76,16 +80,19 @@ public class PlanetQuizManager : MonoBehaviour
             planetImageDisplay.gameObject.SetActive(false);
             timerText.gameObject.SetActive(false);
             feedbackPanel.SetActive(false);
+            scoreText.text = "";
+            infoText.text = "";
 
             foreach (var btn in answerButtons)
                 btn.gameObject.SetActive(false);
 
-            scoreText.text = ""; // Kosongkan karena digabung ke infoText
-
-            infoText.text = $"🎉 Kuis selesai!\n\n🏁 Skor Akhir Anda: <b>{score}</b> / {randomizedQuestions.Count * 10}";
+            resultPanel.SetActive(true);
+            resultText.text = "🎉 Kuis Selesai!";
+            finalScoreText.text = $"🏁 Skor Anda: {score} / {randomizedQuestions.Count * 10}";
 
             return;
         }
+
 
         ResetButtonColors();
 
