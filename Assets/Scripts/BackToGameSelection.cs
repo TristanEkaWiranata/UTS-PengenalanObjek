@@ -16,7 +16,7 @@ public class BackToGameSelection : MonoBehaviour
             }
             else if (DragonBallGameManager.instance != null) 
             {
-                DragonBallGameManager.instance.QuitGame();
+                DragonBallGameManager.instance.ExitToMenu();
             }
 
             // Bersihkan semua PlayerPrefs untuk memastikan tidak ada data sisa

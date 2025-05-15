@@ -156,7 +156,7 @@ public class DragonBallGameManager : MonoBehaviour
         SceneManager.LoadScene("GameOverDragonBall");
     }
 
-   public void QuitGame()
+   public void ExitToMenu()
     {
         Destroy(gameObject);
         StartCoroutine(QuitAndResetState());
@@ -164,7 +164,7 @@ public class DragonBallGameManager : MonoBehaviour
 
     private IEnumerator QuitAndResetState()
     {
-        SceneManager.LoadScene("GameSelection");
+        SceneManager.LoadScene("VersusSelection");
         yield return new WaitForSeconds(0.1f);
 
         // Reset semua nilai agar seperti baru

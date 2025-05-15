@@ -6,7 +6,7 @@ public class GameOverSceneManager : MonoBehaviour
 {
     public Text resultText;
     public Button restartButton;
-    public Button quitButton;
+    public Button exitMenuButton;
 
     void Start()
     {
@@ -19,10 +19,10 @@ public class GameOverSceneManager : MonoBehaviour
             DragonBallGameManager.instance.RestartGame();
         });
 
-        quitButton.onClick.AddListener(() =>
+        exitMenuButton.onClick.AddListener(() =>
         {
             Debug.Log("Quit button clicked!");
-            DragonBallGameManager.instance.QuitGame();
+            DragonBallGameManager.instance.ExitToMenu();
 
         });
     }

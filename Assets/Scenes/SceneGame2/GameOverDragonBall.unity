@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultText: {fileID: 1967165697}
   restartButton: {fileID: 1618008150}
-  quitButton: {fileID: 735447016}
+  exitMenuButton: {fileID: 735447016}
 --- !u!1 &735447013
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 735447016}
   - component: {fileID: 735447015}
   m_Layer: 0
-  m_Name: QuitButton
+  m_Name: ExitToMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
