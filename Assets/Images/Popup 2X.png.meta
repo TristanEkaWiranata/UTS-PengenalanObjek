@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Popup 2X_0: 1475412306871245227
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
