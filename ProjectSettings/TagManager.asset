@@ -25,6 +25,10 @@ TagManager:
   - BGM
   - WinPanel
   - WinText
+  - DifficultyPanel
+  - EasyButton
+  - MediumButton
+  - HardButton
   layers:
   - Default
   - TransparentFX
