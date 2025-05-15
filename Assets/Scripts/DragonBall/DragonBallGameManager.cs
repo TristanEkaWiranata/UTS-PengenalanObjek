@@ -1,17 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class DragonBallGameManager : MonoBehaviour
 {
-    public static DragonBallGameManager instance; // Singleton
-    public static string lastGameOverMessage;     // Digunakan oleh scene GameOver
+    public static DragonBallGameManager instance;
+    public static string lastGameOverMessage;
 
     public enum GameMode { PVP, PVE }
     public GameMode currentMode;
 
     [Header("Game Settings")]
-    public float gameTime = 120f;
+    public float maxGameTime = 60f;
+    private float currentGameTime;
 
     [Header("UI References")]
     public Text timerText;
@@ -19,59 +21,77 @@ public class DragonBallGameManager : MonoBehaviour
     [Header("Audio")]
     public AudioSource bgmAudioSource;
 
-    private bool gameEnded = false;
-    public int player1Score = 0;
-    public int player2Score = 0;
+    private bool gameEnded;
+    private int player1Score;
+    private int player2Score;
 
     void Awake()
     {
-        // Singleton pattern
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject);
-            return;
+            Destroy(gameObject); // hanya hancurkan jika bukan instance yang aktif
         }
     }
 
+
     void Start()
     {
-        // Ambil mode dari PlayerPrefs
-        string mode = PlayerPrefs.GetString("GameMode", "PVP"); // Default to PVP
-        currentMode = (mode == "PVE") ? GameMode.PVE : GameMode.PVP;
-
-        // Setup BGM
-        if (bgmAudioSource != null)
+        string gameMode = PlayerPrefs.GetString("GameMode", "PVP"); // Default ke PVP jika tidak ada nilai
+        if (gameMode == "PVE")
         {
-            DontDestroyOnLoad(bgmAudioSource.gameObject);
-            if (!bgmAudioSource.isPlaying)
-                bgmAudioSource.Play();
+            currentMode = GameMode.PVE;
         }
+        else
+        {
+            currentMode = GameMode.PVP;
+        }
+        
+        InitializeGame();
+    }
+
+    void InitializeGame()
+    {
+        Debug.Log("InitializeGame dipanggil");
+
+        gameEnded = false;
+        player1Score = 0;
+        player2Score = 0;
+        currentGameTime = maxGameTime;
+        Time.timeScale = 1f;
+
+        // Pastikan referensi UI dan Audio valid
+        if (timerText == null)
+            timerText = GameObject.FindWithTag("TimerText")?.GetComponent<Text>();
+
+        if (bgmAudioSource == null)
+            bgmAudioSource = GameObject.FindWithTag("BGM")?.GetComponent<AudioSource>();
+
+        if (bgmAudioSource != null && !bgmAudioSource.isPlaying)
+            bgmAudioSource.Play();
     }
 
     void Update()
     {
         if (gameEnded) return;
 
-        gameTime -= Time.deltaTime;
+        currentGameTime -= Time.deltaTime;
+        UpdateTimerDisplay();
 
-        if (timerText != null)
+        if (currentGameTime <= 0f)
         {
-            int minutes = Mathf.FloorToInt(gameTime / 60);
-            int seconds = Mathf.FloorToInt(gameTime % 60);
-            timerText.text = $"{minutes:00}:{seconds:00}";
+            if (player1Score == player2Score)
+                GameOver("Seri!");
+            else if (player1Score > player2Score)
+                GameOver("Player 1 menang!");
+            else
+                GameOver("Player 2 menang!");
         }
-
-        if (gameTime <= 0f)
-        {
-            GameOver("Waktu habis!");
-        }
-
-        if (player1Score >= 7)
+        else if (player1Score >= 7)
         {
             GameOver("Player 1 menang!");
         }
@@ -81,9 +101,36 @@ public class DragonBallGameManager : MonoBehaviour
         }
     }
 
+    void UpdateTimerDisplay()
+    {
+        if (timerText != null)
+        {
+            int minutes = Mathf.FloorToInt(currentGameTime / 60);
+            int seconds = Mathf.FloorToInt(currentGameTime % 60);
+            timerText.text = $"{minutes:00}:{seconds:00}";
+        }
+    }
+
+    public void RestartGame()
+    {
+        StartCoroutine(RestartAndReassignReferences());
+    }
+
+    private IEnumerator RestartAndReassignReferences()
+    {
+        SceneManager.LoadScene("GameSceneDragonBall");
+        yield return new WaitForSeconds(0.1f); // Tunggu scene selesai load
+
+        // Ambil ulang referensi UI & audio dari scene baru
+        timerText = GameObject.FindWithTag("TimerText")?.GetComponent<Text>();
+        bgmAudioSource = GameObject.FindWithTag("BGM")?.GetComponent<AudioSource>();
+
+        InitializeGame();
+    }
+
     public void SetGameMode(GameMode mode)
     {
-        if (currentMode != mode)  // Pastikan mode tidak berubah terus-menerus
+        if (currentMode != mode)
         {
             currentMode = mode;
         }
@@ -109,15 +156,28 @@ public class DragonBallGameManager : MonoBehaviour
         SceneManager.LoadScene("GameOverDragonBall");
     }
 
-    public void RestartGame()
+   public void QuitGame()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("GameSceneDragonBall");
+        Destroy(gameObject);
+        StartCoroutine(QuitAndResetState());
     }
 
-    public void QuitGame()
+    private IEnumerator QuitAndResetState()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene("GameSelection");
+        yield return new WaitForSeconds(0.1f);
+
+        // Reset semua nilai agar seperti baru
+        timerText = null;
+        bgmAudioSource = null;
+        player1Score = 0;
+        player2Score = 0;
+        currentGameTime = maxGameTime;
+        gameEnded = false;
+
+        // Stop musik jika ada
+        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
+            bgmAudioSource.Stop();
     }
+
 }

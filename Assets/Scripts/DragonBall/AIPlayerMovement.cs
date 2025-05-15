@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class AIPlayerMovement : MonoBehaviour 
@@ -15,7 +14,7 @@ public class AIPlayerMovement : MonoBehaviour
     public float jumpThreshold = 2f;
     public float groundCheckRadius = 0.3f;
 
-    private bool isFacingRight = true;
+    private bool isFacingRight = false;
     private bool isDashing = false;
     private bool isGrounded = true;
 
@@ -23,8 +22,6 @@ public class AIPlayerMovement : MonoBehaviour
     private int jumpCount = 0;
 
     private float dashTimer;
-    private float lastGroundedTime;
-    private float coyoteTime = 0.1f;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -43,7 +40,13 @@ public class AIPlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (target == null || isDashing) return;
+        if (target == null || isDashing)
+    {
+        Debug.Log("AI inactive: target null or dashing");
+        return;
+    }
+
+    Debug.Log("AI moving toward: " + target.name);
 
         UpdateGroundedStatus();
         FlipSprite();

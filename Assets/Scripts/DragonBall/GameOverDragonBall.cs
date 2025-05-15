@@ -16,13 +16,14 @@ public class GameOverSceneManager : MonoBehaviour
         restartButton.onClick.AddListener(() =>
         {
             Debug.Log("Restart button clicked!");
-            SceneManager.LoadScene("GameSceneDragonBall");
+            DragonBallGameManager.instance.RestartGame();
         });
 
         quitButton.onClick.AddListener(() =>
         {
             Debug.Log("Quit button clicked!");
-            SceneManager.LoadScene("GameSelection");
+            DragonBallGameManager.instance.QuitGame();
+
         });
     }
 }

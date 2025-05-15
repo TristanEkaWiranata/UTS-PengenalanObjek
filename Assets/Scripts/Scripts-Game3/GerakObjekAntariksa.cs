@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GerakObjekAntariksa : MonoBehaviour
@@ -11,12 +9,13 @@ public class GerakObjekAntariksa : MonoBehaviour
     private Vector3 offset;
     private float firstY;
     private bool isDragging = false;
+    private bool isStopped = false;
 
     void Start()
     {
         if (string.IsNullOrEmpty(category) || (category != "Celestial" && category != "ManMade"))
         {
-            Debug.LogError($"Category tidak valid pada {gameObject.name}. Harus 'Celestial' atau 'ManMade'. Menggunakan default: Celestial");
+            Debug.LogWarning($"Category tidak valid pada {gameObject.name}. Menggunakan default: Celestial");
             category = "Celestial";
         }
         gameObject.tag = category;
@@ -24,7 +23,7 @@ public class GerakObjekAntariksa : MonoBehaviour
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         if (collider == null)
         {
-            Debug.LogError($"BoxCollider2D tidak ditemukan pada {gameObject.name}. Menambahkan BoxCollider2D.");
+            Debug.LogWarning($"BoxCollider2D tidak ditemukan pada {gameObject.name}. Menambahkan BoxCollider2D.");
             collider = gameObject.AddComponent<BoxCollider2D>();
         }
         if (!collider.isTrigger)
@@ -41,7 +40,9 @@ public class GerakObjekAntariksa : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer == null)
         {
-            Debug.LogError($"SpriteRenderer tidak ditemukan pada {gameObject.name}.");
+            Debug.LogError($"SpriteRenderer tidak ditemukan pada {gameObject.name}. Menonaktifkan objek.");
+            gameObject.SetActive(false);
+            return;
         }
         else if (sprites != null && sprites.Length > 0)
         {
@@ -60,21 +61,27 @@ public class GerakObjekAntariksa : MonoBehaviour
         }
 
         firstY = transform.position.y;
+
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError($"GameManager.Instance tidak ditemukan pada {gameObject.name}. Menonaktifkan objek.");
+            gameObject.SetActive(false);
+            return;
+        }
+
         speed = GameManager.Instance.GetObjectSpeed();
         NormalizeSpriteSize normalizer = GetComponent<NormalizeSpriteSize>();
         if (normalizer != null)
         {
             normalizer.NormalizeSize();
         }
-
     }
 
     void Update()
     {
-        if (!isDragging)
-        {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
-        }
+        if (isDragging || isStopped) return;
+
+        transform.Translate(Vector2.left * speed * Time.deltaTime);
 
         if (transform.position.x < -10f)
         {
@@ -105,5 +112,10 @@ public class GerakObjekAntariksa : MonoBehaviour
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
+    }
+
+    public void StopMovement()
+    {
+        isStopped = true;
     }
 }

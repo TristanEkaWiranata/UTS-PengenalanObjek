@@ -3,14 +3,27 @@ using UnityEngine.SceneManagement;
 
 public class BackToGameSelection : MonoBehaviour
 {
-    // Nama scene tujuan ketika Escape ditekan
     public string targetScene = "GameSelection";
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.Instance?.ResetGame(); // Reset game jika ada GameManager
+            // Reset dan keluar dari game yang sesuai berdasarkan scene atau GameManager yang aktif
+            if (GameManager.Instance != null) 
+            {
+                GameManager.Instance.ResetGame();
+            }
+            else if (DragonBallGameManager.instance != null) 
+            {
+                DragonBallGameManager.instance.QuitGame();
+            }
+
+            // Bersihkan semua PlayerPrefs untuk memastikan tidak ada data sisa
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+
+            // Pindah ke scene GameSelection
             SceneManager.LoadScene(targetScene);
         }
     }

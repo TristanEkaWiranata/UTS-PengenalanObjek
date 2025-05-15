@@ -20,6 +20,15 @@ TagManager:
   - PlayAgainButton
   - QuitButton
   - Paddle
+  - Ball
+  - GameManager
+  - BGM
+  - WinPanel
+  - WinText
+  - DifficultyPanel
+  - EasyButton
+  - MediumButton
+  - HardButton
   layers:
   - Default
   - TransparentFX

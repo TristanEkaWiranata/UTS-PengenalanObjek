@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MunculObjekAntariksa : MonoBehaviour
@@ -13,16 +11,19 @@ public class MunculObjekAntariksa : MonoBehaviour
 
     void Start()
     {
-        ResetSpawner();
-        if (antariksaPrefabs.Length == 0)
+        if (antariksaPrefabs == null || antariksaPrefabs.Length == 0)
         {
-            Debug.LogError("Array antariksaPrefabs kosong. Isi di Inspector.");
+            Debug.LogError("Array antariksaPrefabs kosong atau null di Inspector!");
+            enabled = false; // Nonaktifkan script jika prefab tidak diatur
+            return;
         }
+        ResetSpawner();
     }
 
     void Update()
     {
-        if (!enabled) return;
+        if (!enabled || GameManager.Instance == null || !GameManager.Instance.GetComponent<GameManager>().isGameActive)
+            return;
 
         timer += Time.deltaTime;
         if (timer > spawnInterval && IsSafeToSpawn())
@@ -47,22 +48,31 @@ public class MunculObjekAntariksa : MonoBehaviour
 
     void SpawnObjekAntariksa()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance tidak ditemukan di SpawnObjekAntariksa!");
+            return;
+        }
+
         GameObject prefabToSpawn = antariksaPrefabs[Random.Range(0, antariksaPrefabs.Length)];
+        if (prefabToSpawn == null)
+        {
+            Debug.LogError("Prefab antariksa null di antariksaPrefabs!");
+            return;
+        }
+
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
         GameObject newObj = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
-
-        NormalizeSpriteSize normalizer = newObj.GetComponent<NormalizeSpriteSize>();
-        if (normalizer != null)
-        {
-            normalizer.NormalizeSize();
-        }
 
         GerakObjekAntariksa objScript = newObj.GetComponent<GerakObjekAntariksa>();
         if (objScript != null)
         {
             objScript.SetSpeed(GameManager.Instance.GetObjectSpeed());
         }
-
+        else
+        {
+            Debug.LogWarning($"GerakObjekAntariksa tidak ditemukan pada {newObj.name}");
+        }
     }
 
     public void ResetForNewLevel(float newInterval)
@@ -74,6 +84,12 @@ public class MunculObjekAntariksa : MonoBehaviour
 
     public void ResetSpawner()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager.Instance tidak ditemukan di ResetSpawner!");
+            return;
+        }
+
         spawnInterval = GameManager.Instance.GetSpawnInterval();
         timer = 0;
         enabled = true;
