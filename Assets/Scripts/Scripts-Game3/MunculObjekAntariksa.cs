@@ -64,8 +64,6 @@ public class MunculObjekAntariksa : MonoBehaviour
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0);
         GameObject newObj = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
 
-        // NormalizeSpriteSize dihapus
-
         GerakObjekAntariksa objScript = newObj.GetComponent<GerakObjekAntariksa>();
         if (objScript != null)
         {

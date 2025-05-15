@@ -1457,6 +1457,7 @@ GameObject:
   - component: {fileID: 1055683558}
   - component: {fileID: 1055683559}
   - component: {fileID: 1055683561}
+  - component: {fileID: 1055683562}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1718,6 +1719,19 @@ MonoBehaviour:
   wrongSFX: {fileID: 8300000, guid: 0b32882a3dc810344997419104d2846f, type: 3}
   resultSFX: {fileID: 8300000, guid: bb936549fa8e46a4c92f09819bf3bf4c, type: 3}
   timePerQuestion: 10
+--- !u!114 &1055683562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055683554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7642cf8541681494d9cb5b5347e2d88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetScene: GameSelection
 --- !u!1 &1150607808
 GameObject:
   m_ObjectHideFlags: 0

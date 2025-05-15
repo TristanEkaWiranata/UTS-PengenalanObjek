@@ -1,32 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+    #region Singleton
     public static GameManager Instance;
-    public Text levelText;
-    public Text timerText;
-    public Image[] hearts;
-    public GameObject winPanel;
-    public Text winText;
-    public Button playAgainButton;
-    public Button exitButton;
-    public GameObject difficultyPanel;
-    public Button easyButton;
-    public Button mediumButton;
-    public Button hardButton;
-    public AudioClip levelUpSound;
-    public AudioSource audioSource;
 
-    private int currentLevel = 1;
-    private int score = 0;
-    private int lives = 3;
-    private float timeRemaining;
-    public bool isGameActive = false;
-    private bool listenersAdded = false;
-    private string selectedDifficulty = "Medium";
+    [Header("Game Settings")]
+    private int currentLevel = 1; // Level saat ini
+    private int score = 0; // Skor pemain
+    private int lives = 3; // Jumlah nyawa
+    private float timeRemaining; // Waktu tersisa
+    public bool isGameActive = false; // Status permainan
+    private bool listenersAdded = false; // Status listener tombol
+    private string selectedDifficulty = "Medium"; // Kesulitan default
 
+    // Data level dan kesulitan
     private readonly int[] scoreThresholds = { 200, 400, 700, 1000 };
     private readonly float[] spawnIntervalsBase = { 1.0f, 0.8f, 0.67f, 0.6f, 0.5f };
     private readonly float[] objectSpeedsBase = { 4.0f, 5.0f, 6.0f, 6.2f, 6.5f };
@@ -42,19 +33,31 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning($"Duplikat GameManager pada {gameObject.name}. Menghapus instance ini.");
             Destroy(gameObject);
             return;
         }
         Instance = this;
-        // Inisialisasi array dengan nilai default
+        // Inisialisasi array
         spawnIntervals = spawnIntervalsBase;
         objectSpeeds = objectSpeedsBase;
         objectsToSort = objectsToSortBase;
         levelTimes = levelTimesBase;
-        // DontDestroyOnLoad(gameObject);
-        Debug.Log("GameManager Awake: Instance diinisialisasi.");
     }
+    #endregion
+
+    #region Scene Management
+    [Header("UI References")]
+    public Text levelText; // Teks level
+    public Text timerText; // Teks waktu
+    public Image[] hearts; // Gambar nyawa
+    public GameObject winPanel; // Panel kemenangan
+    public Text winText; // Teks kemenangan
+    public Button playAgainButton; // Tombol main ulang
+    public Button exitButton; // Tombol keluar
+    public GameObject difficultyPanel; // Panel kesulitan
+    public Button easyButton; // Tombol Easy
+    public Button mediumButton; // Tombol Medium
+    public Button hardButton; // Tombol Hard
 
     void OnEnable()
     {
@@ -66,17 +69,17 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // Inisialisasi UI saat scene Game3Scene dimuat
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Game3Scene")
         {
-            Debug.Log("Scene Game3Scene dimuat, menginisialisasi UI.");
             InitializeUI();
-            // Hanya tampilkan panel kesulitan, jangan reset spawner/detektor dulu
             ShowDifficultyPanel();
         }
         else
         {
+            // Bersihkan referensi UI
             levelText = null;
             timerText = null;
             for (int i = 0; i < hearts.Length; i++)
@@ -99,6 +102,12 @@ public class GameManager : MonoBehaviour
             exitButton = null;
         }
     }
+    #endregion
+
+    #region Audio
+    [Header("Audio Settings")]
+    public AudioClip levelUpSound; // Suara naik level
+    public AudioSource audioSource; // Sumber audio
 
     void Start()
     {
@@ -107,10 +116,11 @@ public class GameManager : MonoBehaviour
         {
             audioSource.clip = levelUpSound;
         }
-        // ResetGame tidak dipanggil di Start, karena kita tunggu pemilihan kesulitan
-        Debug.Log("GameManager Start: Menunggu pemilihan kesulitan.");
     }
+    #endregion
 
+    #region Game Logic
+    // Mengurangi waktu dan memeriksa game over
     void Update()
     {
         if (isGameActive && SceneManager.GetActiveScene().name == "Game3Scene")
@@ -124,6 +134,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Mengurangi nyawa
     public void LoseLife()
     {
         if (isGameActive)
@@ -137,12 +148,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Menangani game over
     public void TriggerGameOver()
     {
         if (isGameActive)
         {
             isGameActive = false;
-
             PlayerPrefs.SetInt("LastScore", score);
             PlayerPrefs.SetInt("LastLevel", currentLevel);
 
@@ -157,6 +168,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Menangani kemenangan (level 5)
     public void TriggerGameWin()
     {
         if (isGameActive)
@@ -169,7 +181,6 @@ public class GameManager : MonoBehaviour
             if (spawner != null)
             {
                 spawner.enabled = false;
-                Debug.Log("Spawner dinonaktifkan saat menang.");
             }
 
             GerakObjekAntariksa[] movingObjects = FindObjectsByType<GerakObjekAntariksa>(FindObjectsSortMode.None);
@@ -213,21 +224,24 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Game Management
+    // Main ulang
     void PlayAgain()
     {
-        Debug.Log("Button Play Again ditekan.");
         ResetGame();
         SceneManager.LoadScene("Game3Scene");
     }
 
+    // Keluar ke GameSelection
     void ExitGame()
     {
-        Debug.Log("Quit ditekan. Kembali ke GameSelection.");
         ResetGame();
         SceneManager.LoadScene("GameSelection");
     }
 
+    // Tambah skor
     public void AddScore(int points)
     {
         score += points;
@@ -235,6 +249,7 @@ public class GameManager : MonoBehaviour
         CheckLevelUp(score);
     }
 
+    // Reset skor
     public void ResetScore()
     {
         score = 0;
@@ -245,6 +260,7 @@ public class GameManager : MonoBehaviour
         return score;
     }
 
+    // Reset data permainan
     public void ResetGame()
     {
         score = 0;
@@ -258,16 +274,63 @@ public class GameManager : MonoBehaviour
         {
             InitializeUI();
             UpdateLivesUI();
-            ShowDifficultyPanel(); // Tampilkan panel kesulitan lagi
+            ShowDifficultyPanel();
         }
 
         if (winPanel != null)
         {
             winPanel.SetActive(false);
         }
-        Debug.Log($"ResetGame selesai: Skor={score}, Level={currentLevel}, Lives={lives}, Timer={timeRemaining}, Active={isGameActive}");
     }
 
+    // Keluar dan bersihkan data
+    public void QuitGame()
+    {
+        StartCoroutine(QuitAndResetState());
+    }
+
+    private IEnumerator QuitAndResetState()
+    {
+        SceneManager.LoadScene("GameSelection");
+        yield return new WaitForSeconds(0.1f);
+
+        // Reset data
+        score = 0;
+        currentLevel = 1;
+        lives = 3;
+        timeRemaining = 0f;
+        isGameActive = false;
+        listenersAdded = false;
+        selectedDifficulty = "Medium";
+
+        // Bersihkan UI
+        levelText = null;
+        timerText = null;
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            hearts[i] = null;
+        }
+        winPanel = null;
+        winText = null;
+        difficultyPanel = null;
+        easyButton = null;
+        mediumButton = null;
+        hardButton = null;
+        playAgainButton = null;
+        exitButton = null;
+
+        // Hentikan audio
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        Destroy(gameObject);
+    }
+    #endregion
+
+    #region UI Initialization
+    // Inisialisasi UI
     private void InitializeUI()
     {
         GameObject levelTextObj = GameObject.Find("LevelText");
@@ -397,14 +460,16 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
         UpdateLivesUI();
     }
+    #endregion
 
+    #region Difficulty Management
+    // Tampilkan panel kesulitan
     private void ShowDifficultyPanel()
     {
         if (difficultyPanel != null)
         {
             difficultyPanel.SetActive(true);
             isGameActive = false;
-            Debug.Log("Menampilkan panel pemilihan kesulitan.");
         }
         else
         {
@@ -413,11 +478,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Atur parameter berdasarkan kesulitan
     private void SelectDifficulty(string difficulty)
     {
         selectedDifficulty = difficulty;
-        Debug.Log($"Kesulitan dipilih: {difficulty}");
-
         switch (difficulty)
         {
             case "Easy":
@@ -467,15 +531,15 @@ public class GameManager : MonoBehaviour
             difficultyPanel.SetActive(false);
         }
 
-        // Inisialisasi game setelah kesulitan dipilih
         InitializeGame();
         isGameActive = true;
-        Debug.Log($"Permainan dimulai dengan kesulitan {difficulty}.");
     }
+    #endregion
 
+    #region Game Initialization
+    // Atur spawner dan detektor
     private void InitializeGame()
     {
-        // Inisialisasi spawner dan detektor hanya setelah kesulitan dipilih
         ResetSpawner();
         ResetDetectors();
         UpdateLevelUI();
@@ -504,7 +568,10 @@ public class GameManager : MonoBehaviour
             detector.ResetDetector();
         }
     }
+    #endregion
 
+    #region Level Management
+    // Periksa naik level
     public void CheckLevelUp(int score)
     {
         for (int i = 0; i < scoreThresholds.Length; i++)
@@ -528,7 +595,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region UI Updates
     private void UpdateLevelUI()
     {
         if (levelText != null)
@@ -556,7 +625,10 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Difficulty Update
+    // Perbarui parameter berdasarkan level
     private void UpdateGameDifficulty()
     {
         MunculObjekAntariksa munculSpawner = FindFirstObjectByType<MunculObjekAntariksa>();
@@ -570,9 +642,11 @@ public class GameManager : MonoBehaviour
         {
             obj.SetSpeed(objectSpeeds[currentLevel - 1]);
         }
-        Debug.Log($"Kesulitan diperbarui: SpawnInterval={spawnIntervals[currentLevel - 1]}, Speed={objectSpeeds[currentLevel - 1]}");
     }
+    #endregion
 
+    #region Score Management
+    // Simpan skor tertinggi
     public void SaveHighScore()
     {
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
@@ -580,10 +654,11 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", score);
             PlayerPrefs.Save();
-            Debug.Log($"New High Score: {score}");
         }
     }
+    #endregion
 
+    #region Getters
     public float GetSpawnInterval()
     {
         return spawnIntervals[currentLevel - 1];
@@ -618,4 +693,5 @@ public class GameManager : MonoBehaviour
     {
         return lives;
     }
+    #endregion
 }
