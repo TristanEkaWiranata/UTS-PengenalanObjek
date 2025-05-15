@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7642cf8541681494d9cb5b5347e2d88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: GameSelection
+  targetScene: VersusSelection
 --- !u!1 &690568109
 GameObject:
   m_ObjectHideFlags: 0
