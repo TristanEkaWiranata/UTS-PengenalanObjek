@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/SceneGame1/LoadingScreenGame1.unity
     guid: ac77f250e768bdd4caf5eeb341bfc34d
   - enabled: 1
-    path: Assets/Scenes/Backup/HomeHelloSpace.unity
-    guid: c4abb2f9220ed744da75af485b02b560
+    path: Assets/Scenes/SceneGame1/HomeHelloSpace.unity
+    guid: f60d1aea810863a409c549492fc9e32d
   - enabled: 1
     path: Assets/Scenes/SceneGame1/GameSceneHelloSpace.unity
     guid: 4b2cd0d9bbe6e204fba70a8a14d09d4e

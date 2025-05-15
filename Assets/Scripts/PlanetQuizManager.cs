@@ -34,6 +34,8 @@ public class PlanetQuizManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip correctSFX;
     public AudioClip wrongSFX;
+    public AudioClip resultSFX;
+
 
     private List<Question> randomizedQuestions;
     private int currentQuestionIndex = 0;
@@ -88,7 +90,12 @@ public class PlanetQuizManager : MonoBehaviour
 
             resultPanel.SetActive(true);
             resultText.text = "🎉 Kuis Selesai!";
-            finalScoreText.text = $"🏁 Skor Anda: {score} / {randomizedQuestions.Count * 10}";
+            finalScoreText.text = $"🏁 Skor Anda: {score}/{randomizedQuestions.Count * 10}";
+
+            if (audioSource != null && resultSFX != null)
+            {
+                audioSource.PlayOneShot(resultSFX);
+            }
 
             return;
         }
@@ -98,10 +105,10 @@ public class PlanetQuizManager : MonoBehaviour
 
         Question q = randomizedQuestions[currentQuestionIndex];
         questionText.text = q.questionText;
-        infoText.text = "";
+        infoText.text = ""; 
         planetImageDisplay.sprite = q.planetImage;
         planetImageDisplay.gameObject.SetActive(true);
-        scoreText.text = $"Skor: {score}";
+        scoreText.text = $"{score}";
         timerText.gameObject.SetActive(true);
         timeLeft = timePerQuestion;
         waitingForNext = false;
