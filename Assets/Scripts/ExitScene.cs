@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExitGame : MonoBehaviour
+public class ExitScene : MonoBehaviour
 {
     public void ExitToDesktop()
     {
