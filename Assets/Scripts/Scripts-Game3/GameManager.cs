@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour
     public GameObject winPanel; // Panel kemenangan
     public Text winText; // Teks kemenangan
     // Tombol main ulang
-    public Button quitButton; // Tombol keluar
+    public Button quitButtonWinPanel; // Tombol keluar WinPanel
+    public Button quitButtonDifficultyPanel; // Tombol keluar WinPanel
     public Button playAgainButton; // Tombol keluar
     public GameObject difficultyPanel; // Panel kesulitan
     public Button easyButton; // Tombol Easy
@@ -98,9 +99,9 @@ public class GameManager : MonoBehaviour
                 playAgainButton.onClick.RemoveAllListeners();
             playAgainButton = null;
 
-            if (quitButton != null)
-                quitButton.onClick.RemoveAllListeners();
-            quitButton = null;
+            if (quitButtonWinPanel != null)
+                quitButtonWinPanel.onClick.RemoveAllListeners();
+            quitButtonWinPanel = null;
         }
     }
     #endregion
@@ -210,10 +211,10 @@ public class GameManager : MonoBehaviour
                         playAgainButton.onClick.AddListener(PlayAgain);
                     }
 
-                    if (quitButton != null)
+                    if (quitButtonWinPanel != null)
                     {
-                        quitButton.onClick.RemoveAllListeners();
-                        quitButton.onClick.AddListener(QuitToMenuSelectionGame);
+                        quitButtonWinPanel.onClick.RemoveAllListeners();
+                        quitButtonWinPanel.onClick.AddListener(QuitToMenuSelectionGame);
                     }
 
                     listenersAdded = true;
@@ -318,7 +319,7 @@ public class GameManager : MonoBehaviour
         mediumButton = null;
         hardButton = null;
         playAgainButton = null;
-        quitButton = null;
+        quitButtonWinPanel = null;
 
         // Hentikan audio
         if (audioSource != null && audioSource.isPlaying)
@@ -394,12 +395,12 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("PlayAgainButton tidak ditemukan di WinPanel.");
             }
 
-            GameObject quitButtonObj = GameObject.Find("QuitButton");
-            if (quitButtonObj != null)
+            GameObject quitButtonWinPanelObj = GameObject.Find("QuitButtonWinPanel");
+            if (quitButtonWinPanelObj != null)
             {
-                quitButton = quitButtonObj.GetComponent<Button>();
-                quitButton.onClick.RemoveAllListeners();
-                quitButton.onClick.AddListener(QuitToMenuSelectionGame);
+                quitButtonWinPanel = quitButtonWinPanelObj.GetComponent<Button>();
+                quitButtonWinPanel.onClick.RemoveAllListeners();
+                quitButtonWinPanel.onClick.AddListener(QuitToMenuSelectionGame);
             }
             else
             {
@@ -452,14 +453,16 @@ public class GameManager : MonoBehaviour
             {
                 Debug.LogWarning("HardButton tidak ditemukan di DifficultyPanel.");
             }
-            Transform quitButtonObj = difficultyPanelObj.transform.Find("QuitButton");
-            if (quitButtonObj != null)
+            Transform quitButtonDifficultyPanelObj = difficultyPanelObj.transform.Find("QuitButtonDifficultyPanel");
+            if (quitButtonDifficultyPanelObj != null)
             {
-                quitButton = quitButtonObj.GetComponent<Button>();
+                quitButtonDifficultyPanel = quitButtonDifficultyPanelObj.GetComponent<Button>();
+                quitButtonDifficultyPanel.onClick.RemoveAllListeners();
+                quitButtonDifficultyPanel.onClick.AddListener(QuitToMenuSelectionGame);
             }
             else
             {
-                Debug.LogWarning("QuitButton tidak ditemukan di WinPanel.");
+                Debug.LogWarning("QuitButtonDifficultyPanel tidak ditemukan di DifficultyPanel.");
             }
         }
         else

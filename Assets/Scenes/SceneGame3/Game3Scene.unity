@@ -5130,7 +5130,8 @@ MonoBehaviour:
   - {fileID: 716753456}
   winPanel: {fileID: 1572152302}
   winText: {fileID: 551710013}
-  quitButton: {fileID: 595282418}
+  quitButtonWinPanel: {fileID: 595282418}
+  quitButtonDifficultyPanel: {fileID: 722414526}
   playAgainButton: {fileID: 269662361}
   difficultyPanel: {fileID: 1099484021}
   easyButton: {fileID: 910245379}
@@ -10630,7 +10631,7 @@ GameObject:
   - component: {fileID: 595282418}
   - component: {fileID: 595282422}
   m_Layer: 5
-  m_Name: QuitButton
+  m_Name: QuitButtonWinPanel
   m_TagString: QuitButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11017,7 +11018,7 @@ GameObject:
   - component: {fileID: 722414526}
   - component: {fileID: 722414525}
   m_Layer: 5
-  m_Name: QuitButton
+  m_Name: QuitButtonDifficultyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
